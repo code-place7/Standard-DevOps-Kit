@@ -66,7 +66,7 @@ docker -i load image_name.tar
 10. Prune unused images:
     docker prune image
 
-Docker Container
+# Docker Container
 
 1. Run a container from an image:
    docker run container_name image_name
