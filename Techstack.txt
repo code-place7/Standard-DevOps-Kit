@@ -1,0 +1,98 @@
+====================================================
+              PRODUCTION API TECH STACK
+====================================================
+
+Purpose:
+--------
+This file documents the complete technology stack used
+to build a production-ready API project. It exists to
+ensure consistency, reusability, and faster setup when
+creating future projects with similar requirements.
+
+----------------------------------------------------
+
+RUNTIME & CORE PLATFORM
+-----------------------
+- Node.js
+  • JavaScript runtime for building scalable server-side APIs
+
+- Express.js
+  • Minimal and flexible web framework for REST APIs
+
+----------------------------------------------------
+
+DATABASE & ORM
+--------------
+- Neon (Serverless PostgreSQL)
+  • Cloud-native, scalable, and production-ready PostgreSQL
+  • Ideal for modern serverless and edge environments
+
+- Drizzle ORM
+  • Type-safe ORM for PostgreSQL
+  • Clean SQL-like syntax with strong TypeScript support
+
+----------------------------------------------------
+
+SECURITY & PROTECTION
+---------------------
+- Arcjet
+  • Security layer for protecting APIs
+  • Features: rate limiting, bot detection, abuse prevention
+
+- Helmet
+  • Sets secure HTTP headers to protect against common attacks
+
+- JSON Web Token (jsonwebtoken)
+  • Stateless authentication and authorization
+  • Used for access tokens and protected routes
+
+- CORS
+  • Controls cross-origin resource sharing
+  • Ensures safe API access from trusted clients
+
+- Cookie Parser
+  • Parses cookies for authentication/session handling
+
+----------------------------------------------------
+
+LOGGING & MONITORING
+-------------------
+- Winston
+  • Structured and customizable logging
+  • Suitable for production-grade log management
+
+- Morgan
+  • HTTP request logging middleware
+  • Useful for debugging and traffic analysis
+
+----------------------------------------------------
+
+AI & AUTOMATION
+---------------
+- AI Assistant (ChatGPT / Copilot / Similar)
+  • Automates repetitive tasks
+  • Assists with code generation, debugging, and documentation
+  • Improves developer productivity and reduces setup time
+
+----------------------------------------------------
+
+DEVELOPMENT PRINCIPLES
+----------------------
+- Production-first mindset
+- Security by default
+- Scalability and maintainability
+- Clear separation of concerns
+- Reusability across multiple projects
+
+----------------------------------------------------
+
+NOTES FOR FUTURE PROJECTS
+-------------------------
+- Reuse this stack for APIs requiring:
+  • Authentication & authorization
+  • Secure public access
+  • Serverless-friendly database
+  • Clean logging & observability
+  • Rapid development with automation
+
+====================================================

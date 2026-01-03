@@ -1,0 +1,128 @@
+==============================================================
+   HOW A STANDARD DOCKERFILE SHOULD BE WRITTEN
+   (DO NOT RUN CONTAINERS AS ROOT)
+==============================================================
+
+Purpose:
+--------
+This document demonstrates how a standard, production-ready
+Dockerfile should be written, with a strong focus on security.
+
+One of the most important best practices is:
+→ NEVER run application containers as the root user.
+
+Running containers as non-root significantly reduces the risk
+of security vulnerabilities, privilege escalation, and host
+system compromise.
+
+==============================================================
+
+
+--------------------------------------------------------------
+BASE IMAGE
+--------------------------------------------------------------
+
+# Use an official lightweight Node.js image
+# Alpine-based images reduce final image size
+FROM node:20-alpine
+
+
+--------------------------------------------------------------
+SECURITY: CREATE A NON-ROOT USER
+--------------------------------------------------------------
+
+# Create a dedicated group and user for the application
+# -S : creates a system user
+# -G : adds the user to the specified group
+#
+# Why this matters:
+# If a container runs as root and the application is compromised,
+# an attacker may gain root access to the container and potentially
+# the host system.
+#
+# Running as a non-root user limits the damage.
+RUN addgroup app && adduser -S -G app app
+
+
+--------------------------------------------------------------
+SET USER & WORKING DIRECTORY
+--------------------------------------------------------------
+
+# Switch to the non-root user
+USER app
+
+# Define the working directory inside the container
+WORKDIR /app
+
+
+--------------------------------------------------------------
+DEPENDENCY INSTALLATION (CACHE OPTIMIZATION)
+--------------------------------------------------------------
+
+# Copy only dependency files first
+# This enables Docker layer caching and speeds up rebuilds
+COPY package*.json ./
+
+
+--------------------------------------------------------------
+FIX FILE PERMISSIONS
+--------------------------------------------------------------
+
+# Sometimes copied files are owned by root, which can cause:
+# EACCES: permission denied
+#
+# Temporarily switch to root to fix ownership.
+USER root
+
+# Change ownership of the application directory
+# chown -R <user>:<group> <directory>
+RUN chown -R app:app /app
+
+# Switch back to non-root user
+USER app
+
+
+--------------------------------------------------------------
+INSTALL DEPENDENCIES
+--------------------------------------------------------------
+
+# Install application dependencies
+RUN npm install
+
+
+--------------------------------------------------------------
+COPY APPLICATION SOURCE
+--------------------------------------------------------------
+
+# Copy the rest of the application files
+COPY . .
+
+
+--------------------------------------------------------------
+EXPOSE APPLICATION PORT
+--------------------------------------------------------------
+
+# Expose the port used by the application
+EXPOSE 5173
+
+
+--------------------------------------------------------------
+START APPLICATION
+--------------------------------------------------------------
+
+# Command to start the application
+CMD ["npm", "run", "dev"]
+
+
+==============================================================
+KEY TAKEAWAYS
+==============================================================
+
+- Always avoid running containers as root
+- Use minimal base images (e.g., Alpine)
+- Leverage Docker layer caching
+- Fix file permissions explicitly
+- Separate build and runtime concerns
+- Follow least-privilege security principles
+
+==============================================================

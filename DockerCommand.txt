@@ -1,0 +1,249 @@
+====================================================
+                 DOCKER COMMANDS GUIDE
+====================================================
+
+Purpose:
+--------
+This file serves as a quick-reference guide for commonly
+used Docker commands, covering images, containers,
+volumes, networks, and Docker Compose.
+
+====================================================
+
+
+----------------------------------------------------
+DOCKER IMAGES
+----------------------------------------------------
+
+1. Build an image from a Dockerfile:
+   docker build -t image_name path_to_dockerfile
+
+   Example:
+   docker build -t myapp .
+
+2. List all local images:
+   docker images
+
+3. Pull an image from Docker Hub:
+   docker pull image_name:tag
+
+   Example:
+   docker pull nginx:latest
+
+4. Remove a local image:
+   docker rmi image_name:tag
+
+   Example:
+   docker rmi myapp:latest
+
+5. Tag an image:
+   docker tag source_image:tag new_image:tag
+
+   Example:
+   docker tag myapp:latest myapp:v1
+
+6. Push an image to Docker Hub:
+   docker push image_name:tag
+
+   Example:
+   docker push myapp:v1
+
+7. Inspect image details:
+   docker inspect image_name:tag
+
+   Example:
+   docker inspect myapp:v1
+
+8. Save an image to a tar archive:
+   docker save -o image_name.tar image_name:tag
+
+   Example:
+   docker save -o myapp.tar myapp:v1
+
+9. Load an image from a tar archive:
+   docker load -i image_name.tar
+
+   Example:
+   docker load -i myapp.tar
+
+10. Remove unused images:
+    docker image prune
+
+
+----------------------------------------------------
+DOCKER CONTAINERS
+----------------------------------------------------
+
+1. Run a container from an image:
+   docker run image_name
+
+   Example:
+   docker run myapp
+
+2. Run a named container:
+   docker run --name container_name image_name:tag
+
+   Example:
+   docker run --name my_container myapp:v1
+
+3. List running containers:
+   docker ps
+
+4. List all containers (including stopped):
+   docker ps -a
+
+5. Stop a running container:
+   docker stop container_name_or_id
+
+   Example:
+   docker stop my_container
+
+6. Start a stopped container:
+   docker start container_name_or_id
+
+   Example:
+   docker start my_container
+
+7. Run container in interactive mode:
+   docker run -it image_name
+
+8. Run container with shell access:
+   docker run -it image_name sh
+
+   Example:
+   docker run -it myapp sh
+
+9. Remove a stopped container:
+   docker rm container_name_or_id
+
+   Example:
+   docker rm my_container
+
+10. Force remove a running container:
+    docker rm -f container_name_or_id
+
+11. Inspect container details:
+    docker inspect container_name_or_id
+
+    Example:
+    docker inspect my_container
+
+12. View container logs:
+    docker logs container_name_or_id
+
+    Example:
+    docker logs my_container
+
+13. Pause a running container:
+    docker pause container_name_or_id
+
+14. Unpause a paused container:
+    docker unpause container_name_or_id
+
+
+----------------------------------------------------
+DOCKER VOLUMES & NETWORKS
+----------------------------------------------------
+
+VOLUMES
+-------
+
+1. Create a volume:
+   docker volume create volume_name
+
+   Example:
+   docker volume create my_volume
+
+2. List all volumes:
+   docker volume ls
+
+3. Inspect a volume:
+   docker volume inspect volume_name
+
+4. Remove a volume:
+   docker volume rm volume_name
+
+
+NETWORKS
+--------
+
+5. Run a container with port mapping:
+   docker run --name container_name -p host_port:container_port image_name
+
+   Example:
+   docker run --name my_container -p 8080:80 myapp
+
+6. List all networks:
+   docker network ls
+
+7. Inspect a network:
+   docker network inspect network_name
+
+8. Create a user-defined network:
+   docker network create network_name
+
+   Example:
+   docker network create my_network
+
+9. Connect container to a network:
+   docker network connect network_name container_name
+
+10. Disconnect container from a network:
+    docker network disconnect network_name container_name
+
+
+----------------------------------------------------
+DOCKER COMPOSE
+----------------------------------------------------
+
+1. Start services defined in docker-compose.yml:
+   docker compose up -d
+
+2. Stop and remove services:
+   docker compose down
+
+3. Build or rebuild services:
+   docker compose build
+
+4. List containers in a compose project:
+   docker compose ps
+
+5. View logs for all services:
+   docker compose logs
+
+6. Scale services:
+   docker compose up -d --scale service_name=number
+
+   Example:
+   docker compose up -d --scale web=3
+
+7. Run a one-time command in a service:
+   docker compose run service_name command
+
+   Example:
+   docker compose run web npm install
+
+8. Pause services:
+   docker compose pause
+
+9. Unpause services:
+   docker compose unpause
+
+10. View detailed service status:
+    docker compose ps
+
+
+----------------------------------------------------
+LATEST DOCKER FEATURES
+----------------------------------------------------
+
+1. Initialize Docker in an application:
+   docker init
+
+2. Watch and auto-rebuild services:
+   docker compose watch
+
+   Watches file changes and automatically rebuilds
+   or refreshes containers when updates occur.
+
+====================================================
