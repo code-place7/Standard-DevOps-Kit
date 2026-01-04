@@ -1,0 +1,244 @@
+================================================================
+   PRODUCTION-LEVEL FILES & FOLDERS STRUCTURE FOR AN API
+================================================================
+
+Purpose:
+--------
+This document defines a clean, scalable, and production-ready
+folder structure for building APIs using Node.js and Express.
+
+The goal is to ensure:
+- Maintainability
+- Scalability
+- Clear separation of concerns
+- Easy onboarding for future projects or team members
+
+================================================================
+
+
+---------------------------------------------------------------
+ROOT PROJECT STRUCTURE
+---------------------------------------------------------------
+
+your_project_directory/
+│
+├── src/
+│   ├── app.js
+│   ├── index.js
+│   ├── server.js
+│   │
+│   ├── config/
+│   │   └── index.js
+│   │
+│   ├── controllers/
+│   │   └── example.controller.js
+│   │
+│   ├── models/
+│   │   └── example.model.js
+│   │
+│   ├── routes/
+│   │   └── example.routes.js
+│   │
+│   ├── middleware/
+│   │   └── auth.middleware.js
+│   │
+│   ├── services/
+│   │   └── example.service.js
+│   │
+│   ├── utils/
+│   │   └── logger.js
+│   │
+│   └── validations/
+│       └── example.validation.js
+│
+├── package.json
+├── .env
+├── .gitignore
+└── README.md
+
+
+---------------------------------------------------------------
+CORE FILES EXPLANATION
+---------------------------------------------------------------
+
+src/app.js
+----------
+Responsible for setting up the Express application.
+
+Contains:
+- Express initialization
+- Global middleware (helmet, cors, morgan, cookie-parser)
+- JSON & URL-encoded parsers
+- Route registration
+- Global error handling middleware
+
+NOTE:
+This file should NOT start the server.
+
+
+src/index.js
+-------------
+Acts as the main entry point of the application.
+
+Responsibilities:
+- Load environment variables
+- Initialize database connections
+- Import and start the server
+
+Think of this as the "bootstrap" file.
+
+
+src/server.js
+--------------
+Responsible for starting the HTTP server.
+
+Contains:
+- app.listen()
+- Port configuration
+- Graceful shutdown handling (SIGTERM, SIGINT)
+
+Separating server logic helps with testing and scalability.
+
+
+---------------------------------------------------------------
+FOLDER RESPONSIBILITIES
+---------------------------------------------------------------
+
+config/
+-------
+Stores all configuration-related logic.
+
+Examples:
+- Database configuration
+- Environment variables mapping
+- Third-party services setup (Neon, Arcjet, etc.)
+
+Dummy file:
+- index.js
+
+
+controllers/
+------------
+Handles incoming HTTP requests and responses.
+
+Responsibilities:
+- Receive request data
+- Call appropriate services
+- Return formatted responses
+
+Controllers should NOT contain business logic.
+
+Dummy file:
+- example.controller.js
+
+
+models/
+-------
+Defines database models and schemas.
+
+Responsibilities:
+- Table definitions
+- ORM models (e.g., Drizzle ORM)
+- Data relationships
+
+Dummy file:
+- example.model.js
+
+
+routes/
+-------
+Defines API endpoints and maps them to controllers.
+
+Responsibilities:
+- Route definitions
+- Middleware attachment
+- API versioning (v1, v2, etc.)
+
+Dummy file:
+- example.routes.js
+
+
+middleware/
+-----------
+Custom Express middleware.
+
+Examples:
+- Authentication & authorization
+- Error handling
+- Request validation
+- Rate limiting
+
+Dummy file:
+- auth.middleware.js
+
+
+services/
+---------
+Contains business logic of the application.
+
+Responsibilities:
+- Core application logic
+- Database interactions
+- External API calls
+
+Services are reusable and testable.
+
+Dummy file:
+- example.service.js
+
+
+utils/
+------
+Utility and helper functions.
+
+Examples:
+- Logger (Winston)
+- Token helpers
+- Response formatters
+- Common helpers
+
+Dummy file:
+- logger.js
+
+
+validations/
+------------
+Request validation schemas.
+
+Responsibilities:
+- Validate request body, params, and query
+- Ensure API receives correct data
+
+Tools often used:
+- Zod
+- Joi
+- Yup
+
+Dummy file:
+- example.validation.js
+
+
+---------------------------------------------------------------
+DESIGN PRINCIPLES FOLLOWED
+---------------------------------------------------------------
+
+- Separation of concerns
+- Single responsibility principle
+- Easy testing and mocking
+- Scalable for large applications
+- Production-ready by default
+
+---------------------------------------------------------------
+FINAL NOTES
+---------------------------------------------------------------
+
+This structure is ideal for:
+- REST APIs
+- Production-grade backend services
+- Teams and solo developers
+- Long-term maintainability
+
+Reuse this structure whenever building a new API project
+to save time and maintain consistency.
+
+================================================================

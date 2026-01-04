@@ -1,0 +1,247 @@
+================================================================
+        CORE BACKEND & SYSTEM DESIGN CONCEPTS
+================================================================
+
+Purpose:
+--------
+This document explains fundamental backend and system design
+concepts by describing:
+1) The problem that exists without the concept
+2) The problem the concept solves in production systems
+
+================================================================
+
+
+---------------------------------------------------------------
+1. AUTHENTICATION & AUTHORIZATION
+---------------------------------------------------------------
+
+Problem:
+--------
+APIs exposed to the internet cannot distinguish between:
+- Legitimate users
+- Unauthorized users
+- Malicious actors
+
+Without control, anyone could access sensitive data or perform
+restricted actions.
+
+What It Solves:
+---------------
+Authentication verifies "WHO" the user is.
+Authorization defines "WHAT" the user is allowed to do.
+
+Together, they:
+- Protect private resources
+- Enforce role-based access (admin, user, guest)
+- Prevent unauthorized actions
+- Secure APIs and applications
+
+
+---------------------------------------------------------------
+2. RATE LIMITING
+---------------------------------------------------------------
+
+Problem:
+--------
+A single user or bot can overwhelm an API by sending too many
+requests, leading to:
+- Server crashes
+- Denial of Service (DoS)
+- Increased infrastructure cost
+
+What It Solves:
+---------------
+Rate limiting restricts the number of requests per client
+within a time window.
+
+It:
+- Protects APIs from abuse
+- Ensures fair usage
+- Improves system stability
+- Prevents brute-force attacks
+
+
+---------------------------------------------------------------
+3. DATABASE INDEXES
+---------------------------------------------------------------
+
+Problem:
+--------
+As data grows, querying databases without optimization causes:
+- Slow queries
+- Full table scans
+- High CPU and disk usage
+
+What It Solves:
+---------------
+Indexes allow databases to locate data efficiently.
+
+They:
+- Dramatically speed up read operations
+- Reduce query execution time
+- Improve application performance
+- Enable scalable data access
+
+
+---------------------------------------------------------------
+4. TRANSACTIONS & ACID PROPERTIES
+---------------------------------------------------------------
+
+Problem:
+--------
+Multiple database operations can fail midway due to crashes,
+network issues, or errors, leaving data in an inconsistent
+or corrupted state.
+
+What It Solves:
+---------------
+Transactions group operations into a single unit of work.
+
+ACID guarantees:
+- Atomicity: All operations succeed or none do
+- Consistency: Database rules are preserved
+- Isolation: Concurrent transactions don’t interfere
+- Durability: Committed data is never lost
+
+This ensures data reliability and integrity.
+
+
+---------------------------------------------------------------
+5. CACHING (PERFORMANCE BOOSTER)
+---------------------------------------------------------------
+
+Problem:
+--------
+Repeatedly fetching the same data from databases or APIs causes:
+- High latency
+- Increased database load
+- Poor user experience
+
+What It Solves:
+---------------
+Caching stores frequently accessed data in fast storage
+(memory).
+
+It:
+- Reduces response times
+- Decreases database pressure
+- Improves scalability
+- Enhances overall performance
+
+
+---------------------------------------------------------------
+6. MESSAGE QUEUES
+---------------------------------------------------------------
+
+Problem:
+--------
+Synchronous processing of heavy tasks (emails, notifications,
+payments) can:
+- Block user requests
+- Increase response times
+- Cause failures to cascade
+
+What It Solves:
+---------------
+Message queues enable asynchronous communication.
+
+They:
+- Decouple services
+- Improve reliability
+- Handle traffic spikes
+- Ensure tasks are processed even if services fail
+
+
+---------------------------------------------------------------
+7. LOAD BALANCERS
+---------------------------------------------------------------
+
+Problem:
+--------
+A single server handling all traffic can:
+- Become a bottleneck
+- Fail under high load
+- Create a single point of failure
+
+What It Solves:
+---------------
+Load balancers distribute incoming traffic across
+multiple servers.
+
+They:
+- Improve availability
+- Increase fault tolerance
+- Enable horizontal scaling
+- Ensure consistent performance
+
+
+---------------------------------------------------------------
+8. CAP THEOREM
+---------------------------------------------------------------
+
+Problem:
+--------
+Distributed systems cannot guarantee perfect behavior
+under network failures.
+
+Designing systems without understanding trade-offs leads to
+unexpected outages or data inconsistencies.
+
+What It Solves:
+---------------
+CAP Theorem states a system can only guarantee two of:
+- Consistency
+- Availability
+- Partition Tolerance
+
+It helps engineers:
+- Make informed design decisions
+- Choose correct trade-offs
+- Build resilient distributed systems
+
+
+---------------------------------------------------------------
+9. REVERSE PROXIES
+---------------------------------------------------------------
+
+Problem:
+--------
+Directly exposing backend servers leads to:
+- Security risks
+- Poor traffic management
+- Difficult scaling
+
+What It Solves:
+---------------
+Reverse proxies sit between clients and servers.
+
+They:
+- Hide backend infrastructure
+- Handle SSL termination
+- Manage routing and load balancing
+- Improve security and performance
+
+
+---------------------------------------------------------------
+10. CONTENT DELIVERY NETWORKS (CDNs)
+---------------------------------------------------------------
+
+Problem:
+--------
+Serving content from a single geographic location causes:
+- High latency for distant users
+- Slow load times
+- Poor global user experience
+
+What It Solves:
+---------------
+CDNs distribute content across global edge locations.
+
+They:
+- Serve content closer to users
+- Reduce latency
+- Improve performance worldwide
+- Absorb traffic spikes and DDoS attacks
+
+================================================================
