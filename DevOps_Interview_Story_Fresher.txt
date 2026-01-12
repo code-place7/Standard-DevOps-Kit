@@ -1,0 +1,172 @@
+
+DEVOPS INTERVIEW – MY STORY (FRESHER VERSION)
+============================================
+
+Interviewer: Question
+Me: My Answer (explained in simple, fresher-friendly language)
+
+--------------------------------------------------
+INTRODUCTION & FUNDAMENTALS
+--------------------------------------------------
+
+Interviewer: Introduce yourself
+Me: I am a fresher DevOps engineer who has learned AWS, Linux, Git, Docker, Jenkins, and basic Kubernetes. I have worked on hands-on projects where I deployed applications on AWS, automated builds, and learned how real DevOps environments work. I am eager to learn, improve, and grow in a DevOps role.
+
+Interviewer: What is Cloud Computing?
+Me: Cloud computing means using servers, storage, databases, and networking over the internet instead of buying physical hardware. We pay only for what we use, and we can scale resources anytime.
+
+Interviewer: What is AWS and which services have you used?
+Me: AWS is a cloud platform provided by Amazon. I have used EC2 for servers, S3 for storage, IAM for access control, VPC for networking, Load Balancer, Auto Scaling, CloudWatch, and RDS in my practice projects.
+
+Interviewer: Explain your projects
+Me: I worked on a project where I deployed a 3-tier web application on AWS. I used EC2 for servers, Nginx as a web server, Auto Scaling for high availability, and Github Actions for CI/CD. The main goal was automation and reliability.
+
+--------------------------------------------------
+AWS CORE SERVICES
+--------------------------------------------------
+
+Interviewer: Explain EC2, AMI, IAM, and S3
+Me: EC2 is a virtual machine in AWS. AMI is a template used to create EC2 instances. IAM is used to manage users, roles, and permissions securely. S3 is object storage used to store files, backups, and static content.
+
+Interviewer: What is Auto Scaling and Load Balancer?
+Me: Auto Scaling increases or decreases EC2 instances based on traffic. Load Balancer distributes incoming traffic across multiple instances so that no single server is overloaded.
+
+Interviewer: What is Disaster Recovery?
+Me: Disaster Recovery means having a backup and recovery plan in case of failure. It includes backups, snapshots, and sometimes using multiple regions to avoid downtime.
+
+Interviewer: What is 3-Tier Architecture?
+Me: It has three layers: presentation layer (frontend), application layer (backend), and database layer. It improves security, scalability, and maintenance.
+
+Interviewer: Difference between HTTP and HTTPS?
+Me: HTTP is not secure. HTTPS encrypts data using SSL/TLS, making communication secure.
+
+Interviewer: How do you configure HTTPS?
+Me: We use an SSL certificate (ACM in AWS) and attach it to a Load Balancer or web server, then redirect HTTP traffic to HTTPS.
+
+--------------------------------------------------
+AWS NETWORKING
+--------------------------------------------------
+
+Interviewer: What is VPC?
+Me: VPC is a private network in AWS where we launch our resources.
+
+Interviewer: Public vs Private Subnet
+Me: Public subnet has internet access. Private subnet does not allow direct internet access.
+
+Interviewer: Internet Gateway and NAT Gateway
+Me: Internet Gateway allows public instances to access the internet. NAT Gateway allows private instances to access the internet securely.
+
+Interviewer: Why do private subnet instances need IPs?
+Me: They need private IPs for internal communication and for outbound internet access through NAT.
+
+Interviewer: Security Group vs NACL
+Me: Security Group works at instance level and is stateful. NACL works at subnet level and is stateless.
+
+Interviewer: How to block an IP in VPC?
+Me: We can block an IP using NACL rules or Security Group rules.
+
+Interviewer: What is VPC Peering?
+Me: VPC Peering connects two VPCs privately so they can communicate securely.
+
+--------------------------------------------------
+LINUX
+--------------------------------------------------
+
+Interviewer: Basic Linux commands
+Me: ls, cd, pwd, cp, mv, rm, chmod, chown, top, df, free
+
+Interviewer: How do you rename a file?
+Me: Using mv oldname newname
+
+Interviewer: Explain useradd command
+Me: useradd creates a new user. Example: useradd devops
+
+Interviewer: vmstat and netstat
+Me: vmstat shows CPU and memory usage. netstat shows network connections and ports.
+
+--------------------------------------------------
+WEB SERVER
+--------------------------------------------------
+
+Interviewer: What is Nginx?
+Me: Nginx is a web server and reverse proxy used for high-performance applications.
+
+Interviewer: Nginx root path
+Me: Usually /var/www/html or /usr/share/nginx/html
+
+Interviewer: Explain an Nginx project
+Me: I used Nginx as a reverse proxy for applications running in Docker containers.
+
+--------------------------------------------------
+DEVOPS & CI/CD
+--------------------------------------------------
+
+Interviewer: What is DevOps?
+Me: DevOps is a culture that improves collaboration between development and operations teams.
+
+Interviewer: Tools used in DevOps
+Me: Git, GitHub, Jenkins, Docker, Kubernetes, AWS
+
+Interviewer: CI vs CD
+Me: CI is continuous integration. CD can be continuous delivery or continuous deployment.
+
+Interviewer: Explain CI/CD flow
+Me: Code commit → Jenkins build → Test → Docker image → Deployment.
+
+--------------------------------------------------
+GIT & GITHUB
+--------------------------------------------------
+
+Interviewer: What is Git and GitHub?
+Me: Git is a version control tool. GitHub is a platform to store Git repositories.
+
+Interviewer: What happens when you run git init?
+Me: It creates a new Git repository.
+
+Interviewer: How do you push code to GitHub?
+Me: git add . → git commit → git push
+
+Interviewer: How to undo commits?
+Me: Using git reset or git revert.
+
+Interviewer: Set Git username and email
+Me: git config --global user.name and user.email
+
+--------------------------------------------------
+JENKINS
+--------------------------------------------------
+
+Interviewer: What is Jenkins?
+Me: Jenkins is a CI/CD automation tool.
+
+Interviewer: What is Jenkinsfile?
+Me: Jenkinsfile defines pipeline stages as code.
+
+Interviewer: How Jenkins pulls code from GitHub?
+Me: Using Git webhooks or polling.
+
+--------------------------------------------------
+DOCKER
+--------------------------------------------------
+
+Interviewer: What is Docker?
+Me: Docker is a container platform to package applications.
+
+Interviewer: What is Dockerfile?
+Me: Dockerfile has instructions to build Docker images.
+
+Interviewer: Build and run Docker image
+Me: docker build and docker run
+
+Interviewer: Container vs VM
+Me: Containers share OS, VMs have full OS.
+
+--------------------------------------------------
+KUBERNETES
+--------------------------------------------------
+
+Interviewer: What is Kubernetes?
+Me: Kubernetes manages and orchestrates containers.
+
+Interviewer: Why Kubernetes when Docker exists?
+Me: Docker runs containers, Kubernetes manages scaling, healing, and networking.
