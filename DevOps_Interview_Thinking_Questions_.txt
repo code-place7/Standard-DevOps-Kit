@@ -1,0 +1,179 @@
+
+DEVOPS INTERVIEW – THINKING QUESTIONS (ME vs INTERVIEWER)
+========================================================
+
+Format:
+Interviewer: Question
+Me: My Answer (thinking clearly, fresher-level, logical)
+
+--------------------------------------------------
+AWS & IAM / VPC FUNDAMENTALS
+--------------------------------------------------
+
+Interviewer: What is IAM in AWS?
+Me: IAM stands for Identity and Access Management. It is used to control who can access AWS resources and what actions they can perform. We create users, roles, and policies using IAM.
+
+Interviewer: What is a VPC?
+Me: A VPC is a logically isolated virtual network in AWS where we launch our resources like EC2, RDS, and Load Balancers.
+
+Interviewer: What components exist inside a VPC?
+Me: Subnets, route tables, Internet Gateway, NAT Gateway, security groups, NACLs, and VPC endpoints.
+
+Interviewer: What are public and private subnets?
+Me: Public subnets have a route to the Internet Gateway. Private subnets do not have direct internet access.
+
+Interviewer: What is an Internet Gateway?
+Me: It allows resources in public subnets to access the internet.
+
+Interviewer: What is a NAT Gateway?
+Me: It allows instances in private subnets to access the internet without exposing them publicly.
+
+--------------------------------------------------
+CI/CD FUNDAMENTALS
+--------------------------------------------------
+
+Interviewer: What is a CI/CD pipeline?
+Me: It is an automated process that builds, tests, scans, and deploys code after a developer commits changes.
+
+Interviewer: What tools have you used for CI/CD?
+Me: GitHub, Jenkins, Docker, SonarQube, Trivy, and Kubernetes (basic).
+
+Interviewer: What is DevSecOps?
+Me: DevSecOps means integrating security checks into every stage of the DevOps pipeline.
+
+Interviewer: What is SonarQube used for?
+Me: It is used for static code analysis to detect bugs, code smells, and security vulnerabilities.
+
+Interviewer: What is Trivy used for?
+Me: Trivy is used to scan Docker images for vulnerabilities.
+
+Interviewer: Difference between Continuous Deployment and Continuous Delivery?
+Me: Continuous Delivery requires manual approval before production. Continuous Deployment automatically deploys to production.
+
+--------------------------------------------------
+PIPELINE THINKING QUESTIONS
+--------------------------------------------------
+
+Interviewer: Explain a scenario where pipeline success does NOT mean deployment success.
+Me: The pipeline may pass build and unit tests, but the application can still fail due to missing environment variables or runtime issues.
+
+Interviewer: How do you design pipelines to catch such failures?
+Me: By adding integration tests, environment validation, and staging deployments.
+
+Interviewer: Difference between build-time validation and runtime validation?
+Me: Build-time checks code quality and syntax. Runtime validation checks how the app behaves when running.
+
+Interviewer: Can CI catch runtime issues?
+Me: Not completely. CI can catch some issues using integration tests, but real runtime issues appear after deployment.
+
+Interviewer: If backend passes CI but crashes after deployment, what checks are missing?
+Me: Integration tests, configuration validation, and environment variable checks.
+
+Interviewer: What would you look at first in such a case?
+Me: Application logs and environment variables.
+
+--------------------------------------------------
+TERRAFORM & KUBERNETES TROUBLESHOOTING
+--------------------------------------------------
+
+Interviewer: Terraform apply succeeds but Kubernetes nodes do not join — what do you check first?
+Me: I check security groups, IAM roles, and kubelet logs.
+
+Interviewer: What could prevent nodes from joining the cluster?
+Me: Network issues, missing IAM permissions, wrong kubeadm config, or blocked ports.
+
+--------------------------------------------------
+CI PERFORMANCE ISSUES
+--------------------------------------------------
+
+Interviewer: If a CI pipeline suddenly becomes slow, what do you inspect first?
+Me: Jenkins system load, executor availability, and disk usage.
+
+Interviewer: What Jenkins metrics or resources do you check?
+Me: CPU, memory, disk space, and build queue.
+
+Interviewer: What are CI runner resources?
+Me: CPU, RAM, disk, and network used by Jenkins agents.
+
+--------------------------------------------------
+DOCKER & DOCKER COMPOSE TROUBLESHOOTING
+--------------------------------------------------
+
+Interviewer: What is Docker layer caching?
+Me: Docker reuses unchanged image layers to speed up builds.
+
+Interviewer: How does it improve pipeline speed?
+Me: Only changed layers are rebuilt, reducing build time.
+
+Interviewer: One Docker Compose service crashes repeatedly — what do you check first?
+Me: Container logs.
+
+Interviewer: What logs do you check?
+Me: docker logs <container-name>
+
+Interviewer: What configuration issues could cause this?
+Me: Wrong environment variables, port conflicts, or missing volumes.
+
+Interviewer: Role of environment variables?
+Me: They provide configuration like DB URL and credentials.
+
+Interviewer: What about port binding?
+Me: If ports are already in use, the service will fail to start.
+
+Interviewer: What about volume permissions?
+Me: Wrong permissions can prevent containers from accessing files.
+
+--------------------------------------------------
+DOCKER ON EC2 TROUBLESHOOTING
+--------------------------------------------------
+
+Interviewer: Docker Compose works locally but fails on EC2 — why?
+Me: Differences in OS, firewall rules, ports, or file permissions.
+
+Interviewer: How can port conflicts cause this?
+Me: Another service may already be using the same port on EC2.
+
+Interviewer: How can Linux permissions cause this?
+Me: EC2 user may not have permission to access mounted volumes.
+
+--------------------------------------------------
+REAL-WORLD DEBUGGING SCENARIO
+--------------------------------------------------
+
+Interviewer: EC2, Docker, and NGINX are running but API is unreachable — debug order?
+Me: 
+1. Check Security Group inbound rules
+2. Check port binding in Docker
+3. Check NGINX config
+4. Check application logs
+
+Interviewer: What is container port binding?
+Me: Mapping container port to host port using -p option.
+
+Interviewer: What is NGINX upstream configuration?
+Me: It defines backend servers where NGINX forwards requests.
+
+Interviewer: Role of EC2 Security Groups?
+Me: They control allowed inbound and outbound traffic.
+
+--------------------------------------------------
+ARCHITECTURE & DEPLOYMENT
+--------------------------------------------------
+
+Interviewer: Explain your deployment architecture.
+Me: Users → NGINX → Backend container → Database.
+
+Interviewer: Steps from code commit to deployment?
+Me: Git commit → Jenkins CI → Docker build → Deploy.
+
+Interviewer: Why keep backend on private ports?
+Me: For security. Only NGINX is exposed.
+
+Interviewer: Role of NGINX as reverse proxy?
+Me: It routes traffic and hides backend services.
+
+Interviewer: How to reload NGINX without downtime?
+Me: Using graceful reload.
+
+Interviewer: Command to reload NGINX safely?
+Me: nginx -s reload
