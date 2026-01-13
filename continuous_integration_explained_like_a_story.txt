@@ -1,0 +1,249 @@
+
+What Actually Happens in Continuous Integration (CI)?============================================
+
+
+
+When I first heard “Continuous Integration”, it sounded scary.
+Pipelines, automation, tests, builds — too many words.
+
+But CI is actually very simple.
+
+CI is just about one thing:
+Making sure the code is always in a healthy state.
+
+
+Step 1: Code Repository (AWS CodeCommit)
+
+Everything starts with code.
+
+AWS CodeCommit is just a place where our code lives.
+It’s similar to GitHub or GitLab, but managed by AWS.
+
+Every developer:
+- Writes code locally
+- Commits changes
+- Pushes code to CodeCommit
+
+This is important because:
+- Everyone works on the same codebase
+- Every change is tracked
+- Nothing is lost
+
+
+Step 2: Code Standards (Writing Code Like a Team)
+
+Now imagine every developer writes code in their own style.
+Different naming, spacing, structure.
+
+Reading the code becomes painful.
+
+That’s why code standards exist.
+
+Code standards are simply rules like:
+- How to name variables
+- How to structure files
+- How to format code
+
+The goal is NOT to restrict developers.
+The goal is:
+When someone else reads your code,
+they understand it easily.
+
+Good code standards = better teamwork.
+
+
+Step 3: Linting (Catching Problems Early)
+
+Now comes linting.
+
+A linter is a tool that looks at your code
+and says things like:
+- “This variable is never used”
+- “This syntax is wrong”
+- “This can cause a bug later”
+
+Linting does NOT run your application.
+It just analyzes your code.
+
+Think of it like:
+A grammar checker for your code.
+
+It helps catch small mistakes
+before they become real problems.
+
+
+Step 4: Unit Testing (Protecting Your Code)
+
+This is where many beginners feel scared.
+But unit testing is actually your friend.
+
+Unit tests check small pieces of your code
+to make sure they work correctly.
+
+There’s a famous quote:
+"If you don't like unit testing your product,
+most likely your customers won't like to test it either."
+
+What it really means:
+If you don’t test your code,
+users will find bugs for you — and that’s worse.
+
+
+TDD vs BDD (Simple Explanation)
+
+There are two common ways to think about testing.
+
+TDD (Test-Driven Development):
+- Write tests first
+- Then write code to pass the tests
+
+BDD (Behavior-Driven Development):
+- Focus on how the user expects the system to behave
+- Tests are written in a more human-readable way
+
+Both aim for the same goal:
+More reliable software.
+
+
+Unit Testing Frameworks
+
+Writing tests manually would be painful.
+
+That’s why we use testing frameworks.
+
+A testing framework:
+- Provides rules and structure for tests
+- Gives tools to run tests easily
+- Shows test results clearly
+
+Examples:
+- JUnit (Java)
+- Jest (JavaScript)
+- PyTest (Python)
+
+Frameworks make testing practical.
+
+
+Step 5: Frequent Commits (The Heart of CI)
+
+This is VERY important.
+
+Continuous Integration works best
+when developers commit small changes frequently.
+
+Why?
+
+Because CI is not just about automation.
+It’s about communication.
+
+Frequent commits:
+- Reduce conflicts
+- Make debugging easier
+- Help teams understand what changed and why
+
+Small changes are easier to test and fix.
+
+
+Step 6: Pull Requests (Safe Collaboration)
+
+Before code goes to the main branch,
+we create a Pull Request (PR).
+
+Typical PR steps:
+1. Developer creates a new branch
+2. Pushes code changes
+3. Opens a pull request
+4. Team reviews the code
+5. CI checks run automatically
+6. Code is approved and merged
+
+Pull requests protect the codebase
+from broken or low-quality code.
+
+
+Step 7: AWS CodeBuild (Automating the Build)
+
+Now automation begins.
+
+AWS CodeBuild is a service that:
+- Installs dependencies
+- Runs tests
+- Builds the application
+
+But CodeBuild needs instructions.
+
+These instructions are written in a file
+called `buildspec.yml`.
+
+
+Understanding buildspec.yml (Beginner View)
+
+This file tells CodeBuild:
+“What should I do step by step?”
+
+Example (simplified):
+
+version: 0.2
+
+This just tells AWS which format version we’re using.
+
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+
+Environment variables used during build.
+
+parameter-store:
+  LOGIN_PASSWORD: /CodeBuild/dockerLoginPassword
+
+Sensitive values are stored securely,
+not hardcoded.
+
+
+Phases Explained
+
+install phase:
+This is where tools are installed.
+Example:
+- Update system packages
+- Install Maven
+
+pre_build phase:
+This is preparation before building.
+Example:
+- Login to Docker
+- Setup credentials
+
+Even if a command fails,
+the "finally" block still runs.
+This helps with cleanup and logs.
+
+
+Test Reports in CodeBuild
+
+CodeBuild can collect test reports.
+
+This means:
+- You can see which tests passed
+- Which tests failed
+- Why the build failed
+
+This feedback is crucial for CI.
+
+
+The Real Goal of Continuous Integration
+
+CI is NOT about tools.
+
+CI is about confidence.
+
+Confidence that:
+- Code builds correctly
+- Tests pass
+- Team members won’t break each other’s work
+
+Once CI is strong,
+Continuous Delivery and Deployment
+become much easier.
+
+And that’s how CI fits into the CI/CD pipeline.
