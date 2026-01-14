@@ -247,3 +247,9 @@ LATEST DOCKER FEATURES
    or refreshes containers when updates occur.
 
 ====================================================
+Sometimes you will want to start an interactive Bash session inside the running container.
+  docker exec -it [container_id] bash 
+BUT before that list all images------------- docker images  
+THEN List all running or stop conatiner--------------- docker ps or docker ps -a    TO get the [container_id]
+AFTER getting into the Container VM you can list all files and folders using ------------ ls and many more.
+WE did this and now we know how can we go into a conatiner VM using CLI although we can use docker desktop also.  
