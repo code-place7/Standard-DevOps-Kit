@@ -1,0 +1,295 @@
+What Actually Happens in Continuous Deployment?
+
+After learning about Continuous Integration
+and then Continuous Delivery,
+there’s usually one final question that comes up.
+
+“Okay… the code is built.
+Tests are passing.
+The system looks ready.
+
+Why are we still clicking buttons to deploy?”
+
+That question leads us to Continuous Deployment.
+
+
+**What we just learned**
+Continuous Deployment starts where Continuous Delivery ends.
+The only difference is the removal of manual approval.
+
+
+Before going further, let’s clear up the biggest confusion.
+
+In Continuous Delivery,
+every code change is built, tested,
+and deployed to non-production environments like staging.
+Before production, a human approves the release.
+
+The system is always ready,
+but it waits.
+
+In Continuous Deployment,
+that waiting step is removed.
+
+If all automated checks pass,
+the change goes straight to production.
+No approval button.
+No final human decision.
+
+The pipeline decides.
+
+
+**What we just learned**
+Continuous Deployment means production updates happen automatically
+after tests pass — not manually.
+
+
+At first, this sounds risky.
+And that feeling is correct.
+
+Continuous Deployment is not about speed.
+It’s about trust.
+
+You only remove manual approval
+when you trust your tests,
+your monitoring,
+and your rollback mechanisms
+more than human reaction time.
+
+
+**What we just learned**
+Continuous Deployment only works
+when testing and monitoring are stronger than human intervention.
+
+
+By the time a team reaches this stage,
+a lot of groundwork already exists.
+
+Continuous Integration made sure the code itself is healthy.
+Continuous Delivery made sure the system works together.
+
+Now the question becomes:
+“Can this system safely release changes to real users
+without someone watching every step?”
+
+
+**What we just learned**
+Continuous Deployment builds on CI and CD.
+You don’t skip steps — you earn automation.
+
+
+To make this safe,
+production releases are never done blindly.
+
+As a DevOps engineer,
+I would never deploy to all users at once
+unless I had a very strong reason.
+
+Instead, I choose deployment strategies.
+
+
+Sometimes I release the new version slowly,
+one instance at a time.
+Some servers run the old version,
+some run the new one.
+Users barely notice.
+
+I use this when:
+- The system is large
+- Downtime is unacceptable
+- I want to stop early if something breaks
+
+
+**What we just learned**
+Rolling deployments reduce risk
+by updating production gradually.
+
+
+Other times,
+I expose the new version only to a specific group.
+Maybe users from one region.
+Maybe internal users.
+Maybe beta testers.
+
+I do this when:
+- Different users have different risk levels
+- I want controlled exposure
+
+
+**What we just learned**
+Segmented deployments limit blast radius
+by choosing *who* sees the change.
+
+
+For risky changes,
+I prefer canary deployments.
+
+I release the change to a very small percentage of users.
+Then I watch metrics carefully:
+error rate, latency, CPU, memory.
+
+If everything looks healthy,
+I increase traffic.
+If not,
+the system rolls back automatically.
+
+
+**What we just learned**
+Canary deployments test changes with real users
+while keeping most users safe.
+
+
+Sometimes,
+I want zero downtime and instant rollback.
+
+So I keep two environments.
+One is running the current production version.
+The other runs the new version.
+
+When everything looks good,
+I switch traffic.
+If anything breaks,
+I switch back immediately.
+
+
+**What we just learned**
+Blue/Green deployments give fast rollback
+and near-zero downtime.
+
+
+No matter which strategy I use,
+one thing decides success.
+
+Health checks.
+
+As a DevOps engineer,
+I don’t trust “it deployed successfully”.
+I trust metrics.
+
+I define health checks that answer:
+- Is the app responding?
+- Are error rates acceptable?
+- Is performance stable?
+- Are dependencies reachable?
+
+If these checks fail,
+the deployment fails.
+
+
+**What we just learned**
+In Continuous Deployment,
+health checks decide success — not humans.
+
+
+This is where AWS CodeDeploy fits perfectly.
+
+CodeDeploy is not just a deployment tool.
+It understands deployment strategies.
+It monitors health.
+It knows when to stop or roll back.
+
+As a DevOps engineer,
+I configure CodeDeploy to:
+- Use rolling, canary, or blue/green deployments
+- Monitor application health
+- Roll back automatically on failure
+
+
+**What we just learned**
+AWS CodeDeploy controls *how* production changes happen safely.
+
+
+To make CodeDeploy work,
+I use an AppSpec file.
+
+This file tells AWS:
+- Where to place application files
+- Which scripts to run
+- What to do before, during, and after deployment
+
+I also use it to run extra checks
+during deployment stages.
+
+
+**What we just learned**
+The AppSpec file is the rulebook
+that makes deployments predictable.
+
+
+Now let’s talk about approvals again.
+
+In Continuous Delivery,
+manual approvals add safety,
+but also slow things down.
+
+In Continuous Deployment,
+approvals are automatic.
+Tests, health checks,
+and monitoring systems decide.
+
+Responsibility doesn’t disappear.
+It moves into automation.
+
+
+**What we just learned**
+Automation doesn’t remove responsibility —
+it moves it into systems.
+
+
+AWS CodePipeline ties everything together.
+
+As a DevOps engineer,
+I use CodePipeline to define:
+- Source stage
+- Build stage
+- Test stages
+- Deployment stage
+
+Even with automatic deployments,
+I can:
+- Pause the pipeline
+- Stop transitions
+- Trigger rollbacks
+
+
+**What we just learned**
+Automation still gives you control —
+just faster and more reliable control.
+
+
+When something goes wrong,
+I don’t panic.
+
+Deployments can be stopped.
+Health checks can fail the release.
+Rollback can happen automatically.
+
+That’s why Continuous Deployment only works
+when stopping is easy.
+
+
+**What we just learned**
+A good deployment system
+makes stopping safer than continuing.
+
+
+In the end,
+Continuous Deployment is not about being reckless.
+
+It’s about reaching a point where:
+- Tests are trusted
+- Monitoring is strong
+- Deployments feel routine
+
+Production changes stop being dramatic.
+
+They become boring.
+
+
+**Final Takeaway**
+
+• Continuous Deployment removes manual approval, not responsibility  
+• Deployment strategies exist to reduce risk  
+• Health checks decide success  
+• AWS tools automate safety, not danger  
+• Boring deployments mean you’re doing it right
