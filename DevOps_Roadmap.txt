@@ -114,7 +114,8 @@ Kubernetes objects used to manage replicas and rolling updates.
 Services
 Stable networking endpoints that expose applications inside or outside the cluster.
 
-Advanced Cloud Platforms
+ADVANCED CLOUD PLATFORMS
+
 Large-scale cloud providers offering complex and powerful infrastructure services.
 
 AWS (Amazon Web Services)
