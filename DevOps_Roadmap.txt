@@ -1,0 +1,226 @@
+DEVOPS ROADMAP — SKILLS & TOOLS (IN TRANSCRIPT ORDER)
+
+CI/CD PIPELINE
+An automated workflow that builds, tests, and deploys code, acting as the backbone that orchestrates all DevOps tools.
+
+STAGE 1: DEVOPS PREREQUISITES
+
+Linux Operating System
+The primary operating system used in DevOps environments for running servers, containers, and pipelines.
+
+Linux Shell & Commands
+Used to navigate systems, manage files, processes, and automate tasks on Linux servers.
+
+Linux Scripting
+Writing scripts to automate repetitive system and operational tasks.
+
+Git
+A version control system that tracks code changes and enables team collaboration.
+
+Git Branching Strategies
+Methods like Git Flow and Trunk-Based Development to manage parallel development safely.
+
+GitHub
+A hosted Git platform for code collaboration, reviews, and CI/CD integration.
+
+GitLab
+A Git platform that combines source control, CI/CD, and DevOps tooling.
+
+Everything as Code (X as Code)
+Treating infrastructure, configuration, and pipelines as version-controlled code.
+
+Infrastructure as Code (IaC)
+Defining and managing infrastructure using code instead of manual setup.
+
+Configuration as Code
+Managing system and application configuration through version-controlled files.
+
+Build & Package Management Tools
+Tools that manage application dependencies and package code into deployable formats.
+
+Dependency Management
+Handling external libraries, versions, and compatibility for applications.
+
+npm
+JavaScript package manager used to manage dependencies and build applications.
+
+Maven
+Java build and dependency management tool.
+
+Gradle
+Modern build automation tool for Java applications.
+
+STAGE 2: DEVOPS FUNDAMENTALS
+
+Containerization
+Packaging applications with their dependencies into portable, consistent units.
+
+Docker
+The most popular containerization tool for building and running containers.
+
+Docker Images
+Immutable packages containing application code and dependencies.
+
+Docker Containers
+Running instances of Docker images.
+
+Artifact Repository
+Central storage for application artifacts like binaries, packages, and images.
+
+Artifact Registry
+A system that hosts multiple repositories for different artifact types.
+
+Nexus
+An artifact repository manager supporting multiple artifact formats including Docker images.
+
+Docker Registry
+A specialized registry for storing and distributing Docker images.
+
+Docker Repository
+A storage location within a registry for a specific type of Docker image.
+
+Cloud Basics
+Understanding how cloud infrastructure provides compute, storage, and networking.
+
+Cloud Infrastructure
+Servers, storage, and networks that run applications in the cloud.
+
+Cloud Networking
+Connecting cloud resources securely and efficiently.
+
+STAGE 3: DEVOPS CORE
+
+Kubernetes
+A container orchestration platform that deploys, scales, and manages containerized applications.
+
+Container Orchestration
+Automated management of containers across multiple servers.
+
+Kubernetes Scheduling
+Placing containers on the right nodes based on resource availability.
+
+Load Balancing
+Distributing traffic evenly across application instances.
+
+Auto-Scaling
+Automatically increasing or decreasing application replicas based on demand.
+
+Self-Healing
+Automatically restarting or replacing failed containers or services.
+
+Deployments
+Kubernetes objects used to manage replicas and rolling updates.
+
+Services
+Stable networking endpoints that expose applications inside or outside the cluster.
+
+Advanced Cloud Platforms
+Large-scale cloud providers offering complex and powerful infrastructure services.
+
+AWS (Amazon Web Services)
+The largest public cloud provider offering compute, storage, networking, and DevOps services.
+
+Azure
+Microsoft’s cloud platform offering enterprise-focused cloud services.
+
+GCP (Google Cloud Platform)
+Google’s cloud platform known for data and Kubernetes integration.
+
+Compute Services
+Cloud services that provide virtual machines and processing power.
+
+Storage Services
+Cloud services for storing data and application assets.
+
+Cloud Networking Services
+Services for routing, security, and connectivity in the cloud.
+
+Cloud Security & IAM
+Managing access permissions and identities in cloud environments.
+
+ECR (Elastic Container Registry)
+AWS’s managed Docker registry for storing container images.
+
+Managed Kubernetes
+Cloud-provided Kubernetes services that reduce operational complexity.
+
+EKS (Elastic Kubernetes Service)
+AWS’s managed Kubernetes service.
+
+CI/CD PLATFORMS (CORE DEVOPS SKILL)
+
+CI/CD Platforms
+Tools that automate build, test, and deployment workflows.
+
+Jenkins
+An open-source automation server for building CI/CD pipelines.
+
+GitHub Actions
+GitHub-native CI/CD automation platform.
+
+GitLab CI
+Built-in CI/CD tool within GitLab.
+
+STAGE 4: DEVOPS ADVANCED
+
+Infrastructure as Code (Advanced Usage)
+Automating full cloud and Kubernetes environments using code.
+
+Terraform
+IaC tool that uses declarative configuration to manage infrastructure.
+
+Pulumi
+IaC tool that allows infrastructure to be defined using real programming languages.
+
+Multi-Cloud Infrastructure
+Managing resources across multiple cloud providers.
+
+Pulumi Copilot
+AI-powered assistant that generates and analyzes infrastructure code using natural language.
+
+Pulumi Cloud
+Enterprise platform for managing IaC automation, policies, and deployments.
+
+Python
+A general-purpose programming language used for scripting, automation, and integrations.
+
+Automation Scripting
+Writing scripts to automate operational and infrastructure tasks.
+
+API Integration
+Using Python to communicate with services and platforms programmatically.
+
+Ansible
+A configuration management tool for automating server setup and maintenance.
+
+Configuration Management
+Ensuring consistent system configuration across many servers.
+
+Server Patching
+Keeping operating systems and packages updated automatically.
+
+Monitoring & Observability
+Tracking system health, performance, and reliability.
+
+Prometheus
+An observability tool that collects real-time metrics from systems and Kubernetes.
+
+Metrics Collection
+Measuring performance indicators like CPU, memory, and request rates.
+
+Alerting
+Notifying teams when systems behave abnormally.
+
+Security (DevSecOps Concept)
+
+Security Best Practices
+Applying security controls across all DevOps tools and processes.
+
+Access Control
+Ensuring only authorized users and services can access systems.
+
+Secure Integrations
+Protecting communication between DevOps tools.
+
+Attack Surface Awareness
+Understanding how integrations increase security risks.
