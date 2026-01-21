@@ -1,0 +1,272 @@
+====================================================
+📘 BASH SCRIPTING — MY DEVOPS JOURNEY NOTES
+(Told like a story, with code after every lesson)
+====================================================
+
+Today I didn’t just learn Bash.
+I learned how DevOps engineers think.
+
+This file is me talking to my future self.
+
+
+------------------------------------
+🔹 1. Why Bash Scripting Exists
+------------------------------------
+At first, I was running commands one by one.
+Checking logs, filtering errors, counting issues — again and again.
+
+That’s when it clicked:
+👉 Bash scripting exists to save engineers from boring, repetitive work.
+
+If something is repetitive,
+it should be automated.
+That’s the DevOps mindset.
+
+
+------------------------------------
+🔹 2. Bash Is More Than Commands
+------------------------------------
+Bash is a full programming language.
+A bash script is just a text file with commands.
+
+Example:
+Create a script file.
+
+CODE:
+touch analyze_logs.sh
+
+
+------------------------------------
+🔹 3. Making Script Executable
+------------------------------------
+A script won’t run unless it has execute permission.
+
+CODE:
+chmod +x analyze_logs.sh
+
+Run it:
+./analyze_logs.sh
+
+
+------------------------------------
+🔹 4. Shebang (Very Important)
+------------------------------------
+The system needs to know which interpreter to use.
+
+The shebang goes on the FIRST line.
+
+CODE:
+#!/bin/bash
+
+
+------------------------------------
+🔹 5. Avoid Hardcoding (Why Variables Matter)
+------------------------------------
+Hardcoded paths break scripts.
+Variables make scripts reusable.
+
+CODE:
+log_dir="/Users/nana/logs"
+
+
+------------------------------------
+🔹 6. Variables (Backbone of Scripts)
+------------------------------------
+Variables store paths, filenames, outputs, thresholds.
+
+Rule:
+❗ No spaces around `=`
+
+CODE:
+app_log="application.log"
+system_log="system.log"
+
+
+------------------------------------
+🔹 7. Arrays (Multiple Values in One Variable)
+------------------------------------
+When one value isn’t enough, use arrays.
+
+CODE:
+error_patterns=(error fatal critical)
+
+
+------------------------------------
+🔹 8. Accessing Array Values
+------------------------------------
+Arrays are accessed using index numbers.
+
+CODE:
+echo "${error_patterns[0]}"   # error
+echo "${error_patterns[1]}"   # fatal
+
+
+------------------------------------
+🔹 9. Command Substitution (Big Power Move)
+------------------------------------
+Capture command output into a variable.
+
+CODE:
+log_files=$(find "$log_dir" -name "*.log" -mtime -1)
+
+
+------------------------------------
+🔹 10. Looping Over Files
+------------------------------------
+Instead of hardcoding filenames,
+loop over whatever the system finds.
+
+CODE:
+for log_file in $log_files
+do
+  echo "Processing $log_file"
+done
+
+
+------------------------------------
+🔹 11. Looping Over Error Patterns
+------------------------------------
+Apply the same logic to multiple patterns.
+
+CODE:
+for pattern in "${error_patterns[@]}"
+do
+  echo "Searching for $pattern"
+done
+
+
+------------------------------------
+🔹 12. Nested Loops (Real Automation)
+------------------------------------
+Loop through files,
+inside that loop through patterns.
+
+CODE:
+for log_file in $log_files
+do
+  for pattern in "${error_patterns[@]}"
+  do
+    grep "$pattern" "$log_file"
+  done
+done
+
+
+------------------------------------
+🔹 13. Grep for Log Analysis
+------------------------------------
+Search logs for patterns.
+
+CODE:
+grep "error" application.log
+
+
+------------------------------------
+🔹 14. Counting Errors
+------------------------------------
+Count how many times a pattern appears.
+
+CODE:
+grep -c "error" application.log
+
+
+------------------------------------
+🔹 15. Saving Command Output
+------------------------------------
+Save grep result into a variable.
+
+CODE:
+error_count=$(grep -c "$pattern" "$log_file")
+
+
+------------------------------------
+🔹 16. Making Output Readable
+------------------------------------
+Scripts should talk to humans.
+
+CODE:
+echo "===== Analyzing $log_file ====="
+
+
+------------------------------------
+🔹 17. Redirecting Output to a File
+------------------------------------
+Save results for later review.
+
+Overwrite file:
+CODE:
+echo "Log Analysis" > report.txt
+
+Append to file:
+CODE:
+echo "More results" >> report.txt
+
+
+------------------------------------
+🔹 18. Writing Full Report
+------------------------------------
+Redirect command output into report file.
+
+CODE:
+grep "$pattern" "$log_file" >> "$report_file"
+
+
+------------------------------------
+🔹 19. Conditionals (Script That Thinks)
+------------------------------------
+Scripts should make decisions.
+
+CODE:
+if [ "$error_count" -gt 10 ]; then
+  echo "⚠️ Action Required"
+fi
+
+
+------------------------------------
+🔹 20. Threshold-Based Alerts
+------------------------------------
+Alert only when something is serious.
+
+CODE:
+if [ "$error_count" -gt 10 ]; then
+  echo "Too many $pattern errors in $log_file"
+fi
+
+
+------------------------------------
+🔹 21. Final Status Message
+------------------------------------
+Always tell the user what happened.
+
+CODE:
+echo "Log analysis completed. Report saved."
+
+
+------------------------------------
+🔹 22. Why This Matters in DevOps
+------------------------------------
+This single script:
+✔ saves time
+✔ avoids human error
+✔ scales easily
+✔ documents the process
+
+This is “Everything as Code”.
+
+
+====================================================
+⭐ FINAL TAKEAWAY
+====================================================
+
+Bash scripting is not about memorizing syntax.
+
+It’s about:
+- removing repetition
+- building systems
+- thinking in automation
+
+Today I didn’t just write a script.
+I learned how DevOps engineers
+turn effort into efficiency.
+
+This is day 1.
+====================================================
