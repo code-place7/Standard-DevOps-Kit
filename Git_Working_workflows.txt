@@ -1,0 +1,190 @@
+Git Workflows Explained — Notes to My Future DevOps Self
+
+Hey future me 👋  
+If you’re reading this, remember why you saved it: Git workflows are not about Git.
+They’re about deployment speed, risk, automation, and team maturity — aka DevOps fundamentals.
+
+This  broke down how Git workflows evolved and why high-performing DevOps teams
+gravitate toward trunk-based development.
+
+Let me explain this clearly, from a DevOps mindset.
+
+--------------------------------------------------
+WHY GIT WORKFLOWS MATTER (DEVOPS VIEW)
+--------------------------------------------------
+
+What is it?
+Git workflows are agreed rules for how teams use branches, merge code, and deploy safely.
+
+Where is it used?
+- In all team-based software development
+- Especially important in CI/CD and production deployments
+
+When should it be used?
+- Always in team environments
+- When deployments affect real users
+- When you want predictable and safe releases
+
+--------------------------------------------------
+GITFLOW — STRUCTURED WORKFLOW
+--------------------------------------------------
+
+What is it?
+A Git workflow with multiple long-lived branches:
+- main (production)
+- develop (integration)
+- feature, release, hotfix branches
+
+Where is it used?
+- Mobile applications
+- Desktop software
+- Enterprise software
+- Regulated industries
+-Where you have to installed the software before used on your machine
+
+When should it be used?
+- When software is released in versions
+- When multiple versions must be supported
+- When deployments are slow and controlled
+
+DevOps perspective:
+❌ Too slow for modern CI/CD  
+❌ Heavy branch management  
+❌ Poor fit for continuous deployment
+
+
+--------------------------------------------------
+GITHUB FLOW — SIMPLE WORKFLOW
+--------------------------------------------------
+
+What is it?
+A lightweight workflow where `main` is always deployable.
+
+Where is it used?
+- SaaS products
+- APIs
+- Web applications
+- Cloud-native systems
+
+When should it be used?
+- When there is only one production version
+- When deployments happen frequently
+- When CI/CD pipelines are reliable
+
+DevOps perspective:
+✔ Fast releases  
+✔ Minimal branching  
+⚠ Requires discipline and strong testing
+
+
+--------------------------------------------------
+TRUNK-BASED DEVELOPMENT (TBD) ---- NOWADAYS STANDARD APPROACH
+--------------------------------------------------
+
+What is it?
+A workflow where developers commit directly to `main`
+or use very short-lived branches.
+
+Where is it used?
+- High-performing DevOps teams
+- Large-scale SaaS platforms
+- Continuous deployment environments
+
+When should it be used?
+- When automated testing is very very very strong
+- When CI/CD is mature
+- When fast feedback is critical
+
+DevOps perspective:
+✔ Best support for CI/CD  
+✔ Minimal merge conflicts  
+✔ Fast recovery from failures
+
+
+--------------------------------------------------
+TBD REQUIREMENTS (IMPORTANT)
+--------------------------------------------------
+
+What is required?
+- Automated tests
+- CI pipelines
+- Feature flags
+- Safety guardrails
+
+Where does it fail?
+- Teams with weak tests
+- Manual deployments
+- Low automation maturity
+
+When NOT to use it?
+- If production safety depends on manual checks
+- If CI/CD is unreliable
+
+DevOps truth:
+Trunk-based development forces you to build
+the automation you should already have.
+
+
+--------------------------------------------------
+WHY WORKFLOWS EVOLVED
+--------------------------------------------------
+
+2010:
+- Manual deployments
+- Rare releases
+- Weak automation
+→ Gitflow made sense
+
+Now:
+- CI/CD everywhere
+- Feature flags
+- Cloud infrastructure
+- Automation tools
+→ Gitflow is too slow
+
+Evolution path:
+Gitflow → GitHub Flow → Trunk-Based Development
+
+DevOps exists because:
+Many teams are still stuck in 2010 practices.
+
+--------------------------------------------------
+HYBRID APPROACHES (REAL WORLD)
+--------------------------------------------------
+
+Most teams don’t follow textbook rules.
+
+Examples:
+- TBD + release branches
+- Core team commits to main
+- External teams use PRs
+- Extra guard rails for safety
+
+Lesson:
+Workflows are tools, not religion.
+
+Adapt based on:
+- Team maturity
+- Risk tolerance
+- Test coverage
+- Deployment frequency
+
+
+--------------------------------------------------
+FINAL MESSAGE TO FUTURE ME
+--------------------------------------------------
+
+Aim for trunk-based development.
+But earn it.
+
+If TBD feels scary:
+- Your tests aren’t ready
+- Your automation is weak
+- Your feedback loops are slow
+
+DevOps is about:
+Speed of feedback > process complexity
+
+Simpler workflows.
+Faster learning.
+Safer deployments.

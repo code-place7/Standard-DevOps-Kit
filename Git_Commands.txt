@@ -1,0 +1,166 @@
+ Git Commands for DevOps — Notes to My Future Self
+
+Hey future me 👋  
+If a deployment failed, a PR is blocked, or a hotfix is needed —
+Git is where the truth lives. Use it wisely.
+
+--------------------------------------------------
+BASIC GIT SETUP
+--------------------------------------------------
+
+git --version                     # Check Git version
+git config --global user.name     # Set username
+git config --global user.email    # Set email
+git config --list                 # View config
+
+DevOps use:
+Correct identity matters for audits, PRs, and CI pipelines.
+
+--------------------------------------------------
+REPOSITORY BASICS
+--------------------------------------------------
+
+git init                          # Initialize repo
+git clone repo_url                # Clone repository
+git status                        # Check working tree status
+git add file                      # Stage file
+git add .                         # Stage all changes
+git commit -m "message"           # Commit changes
+
+DevOps use:
+Clean commits = clean pipelines = easier rollbacks.
+
+--------------------------------------------------
+BRANCHING (CRITICAL FOR DEVOPS)
+--------------------------------------------------
+
+git branch                        # List branches
+git branch branch_name            # Create branch
+git checkout branch_name          # Switch branch
+git checkout -b branch_name       # Create + switch
+git switch branch_name            # New way to switch
+git branch -d branch_name         # Delete branch
+
+DevOps use:
+Short-lived branches reduce merge conflicts and speed delivery.
+
+--------------------------------------------------
+WORKING WITH REMOTE REPOS
+--------------------------------------------------
+
+git remote -v                     # View remotes
+git fetch                         # Fetch changes
+git pull                          # Fetch + merge
+git push                          # Push changes
+git push origin branch_name       # Push specific branch
+
+DevOps use:
+CI/CD pipelines usually trigger on push or merge events.
+
+--------------------------------------------------
+MERGING & REBASING
+--------------------------------------------------
+
+git merge branch_name             # Merge branch
+git rebase main                   # Rebase onto main
+git rebase -i HEAD~n              # Interactive rebase
+
+DevOps mindset:
+- Merge = preserves history
+- Rebase = cleaner history
+- NEVER rebase shared branches
+
+--------------------------------------------------
+UNDOING MISTAKES (VERY IMPORTANT)
+--------------------------------------------------
+
+git restore file                  # Discard file changes
+git restore --staged file         # Unstage file
+git reset HEAD~1                  # Undo last commit (keep changes)
+git reset --hard HEAD~1           # Destroy last commit (DANGER)
+git revert commit_id              # Safe rollback (preferred)
+
+DevOps rule:
+👉 In production, use `git revert`, not `reset`.
+
+--------------------------------------------------
+LOGS & HISTORY
+--------------------------------------------------
+
+git log                           # Full history
+git log --oneline                 # Compact history
+git log --graph --all             # Visual history
+git show commit_id                # View commit details
+git blame file                    # Who changed what
+
+DevOps use:
+Finding when bugs were introduced and by whom.
+
+--------------------------------------------------
+STASHING (QUICK SAVE)
+--------------------------------------------------
+
+git stash                         # Save uncommitted work
+git stash list                    # View stashes
+git stash apply                   # Restore stash
+git stash drop                    # Delete stash
+
+DevOps use:
+Switch branches quickly without dirty workspaces.
+
+--------------------------------------------------
+TAGGING (RELEASES)
+--------------------------------------------------
+
+git tag                           # List tags
+git tag v1.0.0                    # Create tag
+git push origin v1.0.0            # Push tag
+
+DevOps use:
+Release versions, rollback points, production tracking.
+
+--------------------------------------------------
+GIT WORKFLOWS (DEVOPS VIEW)
+--------------------------------------------------
+
+Gitflow:
+- Long-lived branches
+- Slow but controlled
+- NOT ideal for CI/CD
+
+GitHub Flow:
+- main always deployable
+- PR → merge → deploy
+- Good for SaaS & APIs
+
+Trunk-Based Development (INDUSTRY STANDARD):
+- Commit directly to main or very short branches
+- Feature flags instead of long branches
+- Best for continuous deployment
+
+Modern DevOps teams prefer:
+✔ Trunk-Based Development
+
+--------------------------------------------------
+CI/CD & AUTOMATION COMMANDS
+--------------------------------------------------
+
+git diff                          # See changes
+git diff HEAD~1                   # Compare commits
+git rev-parse HEAD                # Current commit hash
+git describe --tags               # Current version
+
+DevOps use:
+Used inside pipelines for versioning, builds, and releases.
+
+--------------------------------------------------
+FINAL NOTES TO FUTURE ME
+--------------------------------------------------
+
+- Keep commits small and meaningful
+- main should always be deployable
+- Avoid long-lived branches
+- Automate everything around Git
+- Git is not just version control — it’s a deployment trigger
+
+Good Git habits = Stable deployments = Happy DevOps life 🚀

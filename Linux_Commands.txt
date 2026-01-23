@@ -1,0 +1,161 @@
+ Linux Commands for DevOps — Notes to My Future Self
+
+Hey future me 👋  
+If something is broken in production, logs are exploding, or a pipeline is stuck —
+you’re probably on a Linux box. These commands are your survival kit.
+
+--------------------------------------------------
+FILE & DIRECTORY MANAGEMENT
+--------------------------------------------------
+
+ls              # List files
+ls -la          # Show hidden files with permissions
+pwd             # Show current directory
+cd /path        # Change directory
+mkdir dir       # Create directory
+mkdir -p a/b/c  # Create nested directories
+rm file         # Delete file
+rm -rf dir      # Delete directory forcefully (DANGER)
+cp src dst      # Copy files
+mv src dst      # Move or rename files
+
+DevOps use:
+Navigating servers, cleaning build artifacts, managing config files.
+
+--------------------------------------------------
+FILE VIEWING & LOG ANALYSIS
+--------------------------------------------------
+
+cat file            # Print file content
+less file           # Scroll through file safely
+head -n 20 file     # First 20 lines
+tail -n 20 file     # Last 20 lines
+tail -f app.log     # Follow logs in real time
+wc -l file          # Count lines
+
+DevOps use:
+Reading application logs, debugging crashes, watching deployments live.
+
+--------------------------------------------------
+SEARCH & FILTERING (VERY IMPORTANT)
+--------------------------------------------------
+
+grep "ERROR" file           # Search text in file
+grep -r "TODO" .            # Search recursively
+grep -i "fail" log.txt      # Case-insensitive search
+awk '{print $1}' file       # Extract columns
+sed 's/old/new/g' file      # Replace text
+
+DevOps use:
+Finding errors in logs, filtering outputs in scripts, parsing build logs.
+
+--------------------------------------------------
+PERMISSIONS & OWNERSHIP
+--------------------------------------------------
+
+chmod 755 script.sh     # Change permissions
+chmod +x script.sh      # Make file executable
+chown user:group file   # Change owner
+whoami                  # Current user
+id                      # User details
+
+DevOps use:
+Fixing permission issues, making scripts executable, securing files.
+
+--------------------------------------------------
+PROCESS & SYSTEM MONITORING
+--------------------------------------------------
+
+ps aux               # List running processes
+top                  # Live process monitoring
+htop                 # Better top (if installed)
+kill PID             # Kill process
+kill -9 PID          # Force kill (last resort)
+uptime               # System running time
+free -h              # Memory usage
+df -h                # Disk usage
+du -sh dir            # Directory size
+
+DevOps use:
+Debugging high CPU/memory usage, checking server health.
+
+--------------------------------------------------
+NETWORKING
+--------------------------------------------------
+
+ip a                 # Show IP addresses
+ping google.com      # Network check
+curl url             # Call API / endpoint
+curl -I url          # Check HTTP headers
+wget url             # Download file
+netstat -tuln        # Open ports (older)
+ss -tuln             # Open ports (newer)
+
+DevOps use:
+Checking service connectivity, debugging APIs, verifying ports.
+
+--------------------------------------------------
+PACKAGE MANAGEMENT
+--------------------------------------------------
+
+apt update           # Update package list
+apt install nginx    # Install package
+apt remove nginx     # Remove package
+yum install pkg      # RHEL-based systems
+
+DevOps use:
+Installing tools on servers (Docker, Jenkins, monitoring agents).
+
+--------------------------------------------------
+ARCHIVES & COMPRESSION
+--------------------------------------------------
+
+tar -czvf file.tar.gz dir   # Create archive
+tar -xzvf file.tar.gz       # Extract archive
+zip -r file.zip dir
+unzip file.zip
+
+DevOps use:
+Packaging builds, backups, artifact handling.
+
+--------------------------------------------------
+BASH & SCRIPTING BASICS
+--------------------------------------------------
+
+echo "Hello"         # Print text
+env                  # Show environment variables
+export VAR=value     # Set env variable
+source file.sh       # Load script
+./script.sh          # Run script
+history              # Command history
+!!                   # Repeat last command
+
+DevOps use:
+CI/CD scripts, automation, environment configuration.
+
+--------------------------------------------------
+DOCKER (LINUX SIDE)
+--------------------------------------------------
+
+docker ps            # Running containers
+docker ps -a         # All containers
+docker images        # List images
+docker logs cont     # View container logs
+docker exec -it c sh # Enter container
+
+DevOps use:
+Debugging containers in production or staging.
+
+--------------------------------------------------
+FINAL NOTES TO FUTURE ME
+--------------------------------------------------
+
+- Always check logs first.
+- Never run `rm -rf /` (yes, people still do).
+- Use `less`, not `cat`, for large files.
+- Learn to combine commands using pipes: | 
+
+Example:
+tail -f app.log | grep ERROR
+
+Linux mastery = faster debugging = better DevOps engineer.
