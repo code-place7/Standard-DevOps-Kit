@@ -1,0 +1,110 @@
+“How do developers avoid ‘it works on my machine’ issues?”
+→ Docker solves this problem.
+
+
+“How do teams collaborate on code safely?”
+→ Git solves this problem.
+
+
+“How do we automate build, test, and deployment?”
+→ CI/CD solves this problem.
+
+
+“How do we create customizable automated pipelines?”
+→ Jenkins solves this problem.
+
+
+“How do we run and scale many containers reliably?”
+→ Kubernetes solves this problem.
+
+
+“How do we get virtual servers without buying hardware?”
+→ AWS EC2 solves this problem.
+
+
+“How do we control who can access servers and ports?”
+→ AWS Security Groups solve this problem.
+
+
+“How do we store files and backups reliably at scale?”
+→ AWS S3 solves this problem.
+
+
+“How do we control who can access AWS resources?”
+→ AWS IAM solves this problem.
+
+
+“Where do we securely store Docker images?”
+→ AWS ECR solves this problem.
+
+
+“How do we run containers without managing Kubernetes?”
+→ AWS ECS solves this problem.
+
+
+“How do we use Kubernetes without managing its control plane?”
+→ AWS EKS solves this problem.
+
+
+“How do we monitor logs, metrics, and alarms?”
+→ AWS CloudWatch solves this problem.
+
+
+“How do we audit who changed what in AWS?”
+→ AWS CloudTrail solves this problem.
+
+
+“How do we run databases without managing servers?”
+→ AWS RDS solves this problem.
+
+
+“How do we use a managed MongoDB-style database?”
+→ AWS DocumentDB solves this problem.
+
+
+“How do we reduce database load and speed up apps?”
+→ AWS ElastiCache solves this problem.
+
+
+“How do we decouple services and handle traffic spikes?”
+→ AWS SQS solves this problem.
+
+
+“How do we broadcast events to many systems?”
+→ AWS SNS solves this problem.
+
+
+“How do we send reliable transactional and bulk emails?”
+→ AWS SES solves this problem.
+
+
+“How do we make infrastructure repeatable and versioned?”
+→ Terraform solves this problem.
+
+
+“How do we configure servers at scale automatically?”
+→ Ansible solves this problem.
+
+
+“How do we collect system and application metrics?”
+→ Prometheus solves this problem.
+
+
+“How do we visualize metrics in dashboards?”
+→ Grafana solves this problem.
+
+
+“How do we route traffic and load balance requests?”
+→ Nginx solves this problem.
+
+
+“How do we store secrets securely?”
+→ AWS Secrets Manager solves this problem.
+
+
+“How do we manage Kubernetes deployments easily?”
+→ Helm solves this problem.
+
+
+“How do we keep infrastructure in sync with Git?”
+→ Argo CD solves this problem.

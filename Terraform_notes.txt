@@ -1,0 +1,268 @@
+====================================================
+DAY 9 – TERRAFORM BASICS 🌍
+Infrastructure as Code (IaC)
+====================================================
+
+====================================================
+1. WHY TERRAFORM?
+====================================================
+
+Problem with manual infrastructure ❌:
+• Creating infra via cloud portals is slow
+• Hard to replicate across environments (dev, test, prod)
+• Dependency on specific engineers
+• High chance of human errors
+• No proper change tracking
+• Difficult to manage multi-cloud setups
+
+Solution ✅:
+Terraform = Infrastructure as Code (IaC)
+
+Benefits:
+• Infrastructure defined as code (scripts)
+• Automated & repeatable
+• Same code for all environments
+• Easy collaboration
+• Version control friendly
+• Supports multi-cloud:
+  - AWS
+  - Azure
+  - GCP
+  - Many more
+
+====================================================
+2. WHAT IS TERRAFORM?
+====================================================
+
+• Open-source IaC tool by HashiCorp
+• Automates:
+  - Creating infrastructure
+  - Updating infrastructure
+  - Maintaining infrastructure
+• Cloud-agnostic (works across providers)
+
+====================================================
+3. TERRAFORM MODULES
+====================================================
+
+Definition:
+• Any folder containing at least one `.tf` file
+  → is a Terraform module
+
+Key points:
+• `.tf` extension is mandatory
+• File name doesn’t matter (main.tf, providers.tf, etc.)
+• Modules are:
+  - Reusable
+  - Shareable
+  - Versionable
+
+Examples:
+• One module for VPC / VNET
+• One module for VM
+• One module for DB
+
+Module Dependencies:
+• One module can call another module
+• Helps break infra into smaller, manageable components
+
+====================================================
+4. PROVIDERS
+====================================================
+
+What is a Provider?
+• A plugin that allows Terraform to talk to:
+  - Cloud providers (AWS, Azure, GCP)
+  - Other services
+
+Examples:
+• Azure Provider
+• AWS Provider
+
+Important:
+• Providers must be initialized before use
+• Installed automatically during `terraform init`
+
+====================================================
+5. TERRAFORM STATE FILE (MOST IMPORTANT)
+====================================================
+
+What is State?
+• Terraform uses state to track:
+  - What infrastructure exists
+  - What Terraform manages
+
+State File:
+• Stored as a JSON file
+• Contains:
+  - List of resources
+  - Current infrastructure state
+
+Why State Matters:
+• Enables idempotency
+• Terraform knows:
+  - What already exists
+  - What needs to be created/updated/deleted
+
+Example:
+• If a resource is deleted manually in cloud
+• Next Terraform run will recreate it
+
+IMPORTANT RULE ❗:
+❌ Never manually edit the state file
+✅ Only modify state via Terraform commands
+
+====================================================
+6. TERRAFORM WORKFLOW
+====================================================
+
+1️⃣ Write Terraform code (.tf files)
+2️⃣ Initialize:
+   terraform init
+   • Downloads providers
+   • Prepares working directory
+
+3️⃣ Plan:
+   terraform plan
+   • Shows what changes will happen
+
+4️⃣ Apply:
+   terraform apply
+   • Creates or updates infrastructure
+   • Generates/updates state file
+
+====================================================
+7. LOCAL vs REMOTE STATE
+====================================================
+
+Local State ❌:
+• Stored on one engineer’s machine
+• Not suitable for teams
+
+Remote State ✅ (Best Practice):
+• Shared storage for state file
+• All team members use same state
+
+Common Backends:
+• AWS S3
+• Terraform Cloud
+• Azure Storage
+• Google Cloud Storage
+
+====================================================
+8. STATE LOCKING
+====================================================
+
+Problem:
+• Two engineers running Terraform at same time
+• Can corrupt state file
+
+Solution:
+• Enable state locking
+
+How it works:
+• State file is locked during execution
+• Unlocked after command completes
+
+Examples:
+• AWS S3 uses DynamoDB for locking
+• Not all backends support locking
+
+====================================================
+9. STATE BACKUPS & VERSIONING
+====================================================
+
+Risk:
+• State file corruption
+• Accidental deletion
+
+Best Practice:
+• Enable versioning on state backend
+
+Benefits:
+• Automatic backups
+• History of state changes
+• Ability to restore previous state
+
+====================================================
+10. MULTIPLE ENVIRONMENTS
+====================================================
+
+Best Practice:
+• One state file per environment
+
+Examples:
+• dev → dev.tfstate
+• test → test.tfstate
+• prod → prod.tfstate
+
+Why?
+• Isolation
+• Reduced risk
+• Cleaner management
+
+====================================================
+11. TERRAFORM + GIT (GITOPS)
+====================================================
+
+Infrastructure as Code = Code 💡
+
+Best Practices:
+• Store Terraform code in Git
+• Separate repo or same repo as app
+• Track changes via commits
+• Enable collaboration
+
+Benefits:
+• Version history
+• Rollbacks
+• Team collaboration
+
+====================================================
+12. CODE REVIEWS & CI
+====================================================
+
+Treat Terraform code like application code:
+• Pull requests / merge requests
+• Code reviews
+• Testing via CI pipelines
+
+Why?
+• Prevents mistakes
+• Improves quality
+• Shared ownership
+
+====================================================
+13. CONTINUOUS DEPLOYMENT (CD)
+====================================================
+
+❌ Bad Practice:
+• Engineers running terraform apply locally
+
+✅ Best Practice:
+• Terraform commands run only via CD pipeline
+
+Benefits:
+• Single source of truth
+• Controlled infrastructure changes
+• Audit-friendly
+
+====================================================
+14. KEY TAKEAWAYS
+====================================================
+
+• Terraform automates infrastructure
+• Modules make infra reusable
+• Providers connect Terraform to clouds
+• State file is critical – handle with care
+• Always use:
+  - Remote state
+  - Locking
+  - Backups
+• One state per environment
+• Store Terraform code in Git
+• Apply changes via CI/CD only
+
+====================================================
+END – DAY 9 TERRAFORM NOTES 🚀
+====================================================
