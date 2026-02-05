@@ -18,6 +18,29 @@ The project included:
 - Monitoring using Prometheus & Grafana
 - Domain & SSL using Cloudflare
 
+MISTAKE 1:
+I started installing tools before updating the VM.
+
+LEARNING:
+Always run:
+sudo apt update && sudo apt upgrade
+immediately after creating any VM.
+
+MISTAKE 2:
+I spent time debugging services inside the VM, but the issue was networking.
+
+LEARNING:
+Always configure Security Groups / inbound rules first.
+If ports are not open, services will never be accessible in the browser.
+
+MISTAKE 3:
+I assumed services were down when they were actually running.
+
+LEARNING:
+Use system and network commands:
+• sudo netstat -tulnp -> to check listening ports
+• vmstat -> to check system performance
+
 ====================================================
 2. ARCHITECTURE & TOOLS USED
 ====================================================
