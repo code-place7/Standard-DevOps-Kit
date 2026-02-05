@@ -155,6 +155,16 @@ Running containers 24/7 on EC2 isn’t scalable — Kubernetes helps balance ava
 - How to think like a production DevOps engineer
 
 ====================================================
+AWS CLOUD SERVICES USED 
+====================================================
+1. A jenkin EC2 instance on PORT 8080 jenkin was running & on PORT 3000 our app was running but on a single docker container
+2. A Sonarcube EC2 instance 
+3. A Monitoring EC2 instance on PORT 3000 Grafana was running & on PORT 9090 Prometheus was running
+4. THREE your_cluster_name-Node was running for our app in AWS EKS Cluster 
+
+TOTAL 6 EC2 instances was running
+
+====================================================
 10. FINAL INTERVIEW STATEMENT
 ====================================================
 This project helped me understand how real-world DevOps works.
