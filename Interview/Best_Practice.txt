@@ -1,0 +1,230 @@
+============================================================ 
+DEVOPS BESTPRACTICES & IMPORTANT COMMANDS (Practical Reference File)
+============================================================
+
+============================================================ 
+SECTION 1 –DEVOPS BEST PRACTICES
+============================================================
+
+1. Infrastructure Best Practices
+
+-   Never create production infrastructure manually.
+-   Use Terraform (Infrastructure as Code).
+-   Always run: terraform plan before: terraform apply
+-   Always clean up after practice: terraform destroy
+-   Double check AWS dashboard after destroy.
+
+2. Security Best Practices
+
+-   Never hardcode access keys in code.
+-   Use IAM roles instead of root account.
+-   Open only required ports in Security Groups.
+-   Close public access after testing.
+-   Rotate access keys regularly.
+-   Avoid giving AdministratorAccess in real production.
+
+3. CI/CD Pipeline Best Practices
+
+-   Keep Jenkins pipeline in code (Jenkinsfile).
+-   Use cleanWs() to clean workspace.
+-   Store secrets in Jenkins credentials.
+-   Add quality gates (SonarQube).
+-   Add security scans (Trivy, OWASP).
+-   Enable email or Slack notifications.
+
+4. Docker Best Practices
+
+-   Use lightweight base images.
+-   Tag images properly (versioning).
+-   Avoid using :latest in production.
+-   Scan images before pushing.
+-   Remove unused images: docker image prune
+
+5. Kubernetes Best Practices
+
+-   Use Deployment, not just Pods.
+-   Define replicas for high availability.
+-   Use LoadBalancer or Ingress for external access.
+-   Use RollingUpdate strategy.
+-   Use resource limits (CPU/Memory).
+-   Separate namespaces for environments.
+
+6. Monitoring Best Practices
+
+-   Always monitor both: Application health (Blackbox) System health
+    (Node Exporter)
+-   Keep monitoring on separate server.
+-   Redirect logs to files.
+-   Restart services after config changes.
+-   Check targets in Prometheus after editing config.
+
+7. Linux & Process Management
+
+-   Always check running ports: netstat -tulnp
+-   Check memory usage: free -m
+-   Check system performance: vmstat
+-   Check running processes: ps -aux
+-   Kill process properly: kill
+
+==================================================
+ GOLDEN RULE BEFORE STARTING ANY PROJECT
+==================================================
+
+ALWAYS do these first when creating ANY VM:
+
+1. sudo apt update && sudo apt upgrade
+2. Configure Security Groups / Inbound Rules
+3. THEN install tools or deploy apps
+
+Why:
+- If ports are closed, browser access WILL fail
+- You’ll waste time debugging software
+  when the problem is networking
+
+Reminder:
+If something doesn’t open in browser,
+CHECK SECURITY GROUPS FIRST.
+
+==================================================
+ SECURITY GROUPS = PART OF ARCHITECTURE
+==================================================
+
+Security Groups are NOT optional.
+They are part of system design.
+
+Always decide:
+- What service runs on this VM?
+- What ports does it need?
+
+Common ports I used:
+- SSH              → 22
+- Jenkins           → 8080
+- Application       → 3000
+- SonarQube         → 9000
+- Grafana           → 3000
+- Prometheus        → 9090
+- Blackbox Exporter → 9115
+- SMTP              → 587 / 465
+
+Lesson:
+No inbound rule = no browser access.
+
+==================================================
+ELASTIC IP RULE
+==================================================
+
+When deploying:
+- Jenkins on EC2
+- Single-container apps
+
+ALWAYS:
+- Assign Elastic IP
+- Attach domain to Elastic IP
+
+Why:
+- Public IP changes on reboot
+- Domain breaks without Elastic IP
+
+Lesson:
+Stability matters, even for small setups.
+
+==================================================
+NEVER INSTALL TOOLS MANUALLY AGAIN
+==================================================
+
+Instead of manual installs, ALWAYS maintain scripts.
+
+Must-have installation scripts:
+- Jenkins
+- Docker
+- AWS CLI
+- Terraform
+- eksctl
+- kubectl
+- Trivy
+- SonarQube
+- Prometheus
+- Grafana
+
+Benefits:
+- Saves hours
+- Reduces mistakes
+- Easy rebuilds
+- Looks professional
+
+Lesson:
+Scripts are DevOps superpower.
+
+
+============================================================ 
+IMPORTANT COMMANDS CHEATSHEET
+============================================================
+
+AWS CLI
+
+aws configure 
+aws sts get-caller-identity 
+aws eks update-kubeconfig–region –name
+
+EKS & Kubernetes
+
+eksctl create cluster 
+eksctl delete cluster 
+kubectl get nodes 
+kubectl get pods 
+kubectl get svc 
+kubectl describe pod 
+kubectl logs 
+kubectl apply -f manifest.yml 
+kubectl delete -f manifest.yml
+
+Docker
+
+docker build -t . 
+docker images 
+docker ps 
+docker ps -a 
+docker logs -f
+docker exec -it /bin/bash 
+docker stop 
+docker rm
+
+Terraform
+
+terraform init 
+terraform validate 
+terraform plan 
+terraform apply -auto-approve 
+terraform destroy
+
+Monitoring
+
+./prometheus & 
+./blackbox_exporter & 
+./node_exporter & 
+systemctl start grafana-server 
+systemctl status grafana-server
+
+Networking & Debugging
+
+ping curl http://: telnet netstat -tulnp
+
+============================================================ 
+SECTION 3 –DEVOPS MINDSET REMINDERS
+============================================================
+
+✔ Automate everything 
+✔ Monitor everything 
+✔ Version control everything
+✔ Secure everything 
+✔ Clean up resources 
+✔ Avoid manual clicks in production 
+✔ Always think about scaling 
+✔ Always think about failure recovery
+
+DevOps is not about tools. It is about reliability, automation, and
+system thinking.
+
+============================================================ 
+END OF FILE
+============================================================

@@ -1,0 +1,198 @@
+============================================================ 
+DEVOPSJOURNEY – MISTAKES & LESSONS LEARNED (February Real-World PracticeProjects) 
+============================================================
+
+1. The “Why is it not opening in browser?” mistake 😅
+
+I installed Jenkins. I installed SonarQube. Everything was running
+perfectly.
+
+But nothing was opening in the browser.
+
+After 10 minutes of confusion… I realized I forgot to open the required
+ports in the Security Group.
+
+Lesson: If a service is running but not accessible in the browser,
+ALWAYS check Security Groups first.
+
+2. The “Where is my repo?” confusion 🤦
+
+I was inside the VM thinking: “Where is my project code?”
+
+Then I remembered — Jenkins cloned the repo inside its own workspace
+during pipeline execution.
+
+The repo was never cloned manually inside my EC2 VM.
+
+Lesson: Jenkins workspace ≠ EC2 filesystem. If working from CLI, clone
+the repository manually.
+
+3. The “Wait… we never used AWS CLI before?” realization 🤯
+------------------------------------------------------------
+
+Till now, I was deploying my app using Jenkins dashboard.
+
+I wrote the pipeline inside Jenkins.
+Jenkins pulled code from GitHub.
+Built Docker image.
+Ran container.
+Done.
+
+Everything was happening through dashboard and automation.
+I never needed AWS CLI.
+I never needed IAM user.
+I was just clicking in AWS dashboard when needed.
+
+But now…
+
+I wanted to create an EKS cluster using:
+
+eksctl create cluster
+
+And that command needs AWS CLI authentication.
+
+That’s when I realized:
+
+We never created an IAM user for CLI access.
+We were just using dashboard clicks till now.
+
+So first step:
+Go to IAM → Create a new user.
+
+I created a user named something like:
+bingok8s
+
+Then attached required policies:
+- EC2 Full Access
+- VPC Full Access
+- CloudFormation Full Access
+- IAM Full Access
+- Administrator Access (for learning phase)
+
+Then created an Access Key.
+
+After that, inside the VM:
+
+aws configure
+
+Entered:
+Access Key
+Secret Key
+Region (ap-south-1)
+
+Now finally my CLI was authenticated with AWS.
+
+Then I ran:
+
+eksctl create cluster --name your_cluster_name \
+--region ap-south-1 \
+--node-type t2.medium \
+--zones ap-south-1a,ap-south-1b
+
+After some time, cluster was created.
+
+When I checked AWS dashboard:
+✔ EKS cluster created
+✔ Two nodes running
+✔ Same instance type (t2.medium)
+✔ Different availability zones
+
+That moment made something very clear:
+
+Dashboard clicking ≠ Real Infrastructure Control.
+CLI + IAM + Automation = Real DevOps.
+
+------------------------------------------------------------
+
+Then came the next mindset shift.
+
+Instead of running my app as one single Docker container,
+I wanted:
+
+✔ Auto scaling
+✔ Self-healing
+✔ Load balancing
+✔ Multi-node distribution
+✔ Cost control
+
+That’s why I needed a Kubernetes manifest.yml file.
+
+Deployment + Service:
+
+- Deployment → defines replicas (2 pods)
+- Rolling update strategy
+- Container image
+- Port 3000
+
+- Service → type LoadBalancer
+  So users can access app through stable endpoint.
+
+Now it wasn’t just “run container”.
+
+It became:
+
+Cluster → Nodes → Pods → Service → LoadBalancer
+
+That’s when I truly understood:
+Docker runs containers.
+Kubernetes manages production systems.
+
+
+
+
+
+4. Monitoring installed but no data showing 📉
+
+Installed Blackbox Exporter. Installed Prometheus. Opened Grafana.
+
+But dashboards were empty.
+
+Why?
+
+Because either: - Exporter was not running OR - Prometheus.yml did not
+include its job.
+
+Lesson: Monitoring works like a chain: Exporter → Prometheus → Grafana
+If one link is missing, nothing works.
+
+5. Running services in foreground like a beginner 😄
+
+Initially I ran:
+
+./prometheus
+
+And the terminal was blocked.
+
+Later I learned to run services properly in background with logs:
+
+./prometheus > prometheus.log 2>&1 &
+
+Lesson: Production services should run in background and logs should be
+redirected properly.
+
+6. Almost forgetting to clean resources 💸
+
+After finishing practice, I almost left: - EC2 instances - EKS cluster -
+Load balancers
+
+Running.
+
+Lesson: Always run:
+
+terraform destroy
+
+And double-check AWS dashboard manually.
+
+Cloud bills do not forgive carelessness.
+
+============================================================ 
+FINAL REALIZATION 
+============================================================
+
+Every mistake was not a failure. It was a production lesson.
+
+Security groups matter. User context matters. IAM authentication
+matters. Monitoring chain matters. Cleanup matters.
+
+These mistakes made me think like a DevOps Engineer, not just someone
+installing tools.
