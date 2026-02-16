@@ -1,0 +1,252 @@
+# =====================================================
+
+# DEVOPS / AUTOMATION INTERVIEW PREPARATION NOTES
+
+# =====================================================
+
+##############################
+
+## ROUND 1 – AUTOMATION
+
+##############################
+
+1- Write a Python script that counts the number of .txt files in the current working directory.
+
+## [1] Python Script – Count .txt files
+
+import os
+
+count = 0
+for file in os.listdir('.'):
+if file.endswith('.txt'):
+count += 1
+
+print(f"Total .txt files: {count}")
+
+✔ IMPRESSION LINE:
+This script is clean, efficient, and easily extendable to recursive searches or filters.
+
+---
+
+2- Write a playbook that installs Nginx and ensures the service is started and enabled at boot.
+
+## [2] Ansible Playbook – Install & Start Nginx
+
+* name: Install and start Nginx
+  hosts: webservers
+  become: yes
+  tasks:
+
+  * name: Install nginx
+    apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+  * name: Ensure nginx is running and enabled
+    service:
+    name: nginx
+    state: started
+    enabled: yes
+
+✔ IMPRESSION LINE:
+This playbook is idempotent and ensures service reliability at boot.
+
+---
+
+3 - Bash backup script that creates a compressed backup of a directory with a timestamp.
+
+## [3] Bash Backup Script
+
+#!/bin/bash
+SOURCE_DIR="/path/to/source"
+BACKUP_DIR="/path/to/backup"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+BACKUP_FILE="$BACKUP_DIR/backup_$TIMESTAMP.tar.gz"
+
+mkdir -p "$BACKUP_DIR"
+
+tar -czf "$BACKUP_FILE" "$SOURCE_DIR"
+
+echo "Backup completed: $BACKUP_FILE"
+
+✔ IMPRESSION LINE:
+Ensures timestamped, compressed, and safe backups.
+
+##############################
+
+## ROUND 2 – LINUX & SYSTEMS
+
+##############################
+
+1 - Explain the difference between hard link and soft link.
+## [1] Hard Link vs Soft Link
+
+Hard Link  : Same inode, cannot cross filesystem, survives deletion
+Soft Link  : Shortcut path, can cross filesystem, breaks if original removed
+
+“A hard link points to the same inode and survives deletion of the original file, while a soft link is just a pointer to the file path and breaks if the original file is removed.”
+
+2 - How would you check which ports are listening on a server?
+## [2] Check Listening Ports
+
+ss -tulnp
+
+# or
+
+netstat -tulnp
+
+“I use the ss -tulnp command to list all listening ports along with the processes using them, which helps in quick network troubleshooting.”
+
+
+3 - How would you check disk usage for all mounted partitions?
+## [3] Disk Usage
+
+df -h
+
+du -sh *
+
+4 - Explain how to find and kill a process
+## [4] Find & Kill Process
+
+ps aux | grep <process>
+kill -9 <PID>
+
+Example----- ps aux | grep nginx or better--- pgrep nginx
+Graceful Kill --- kill <PID>
+Force Kill ---- kill -9 <PID>
+
+🐳 If it is a Docker container
+
+Then you should use Docker commands:
+docker ps
+docker stop <container_id>
+docker kill <container_id>
+
+“I first identify the process using ps or top, analyze resource usage, and then terminate it gracefully using kill. I only use force kill (-9) when the process is unresponsive.”
+
+
+
+
+5 - What is grep, awk, and sed?
+## [5] grep vs awk vs sed
+
+grep : search text
+awk  : column & pattern processing
+sed  : stream editing
+
+6 - How do you manage permissions in Linux?
+## [6] File Permissions
+
+chmod 755 file
+chown user:group file
+
+Permission Values:
+read(4) write(2) execute(1)
+
+“I use the ss -tulnp command to list all listening ports along with the processes using them, which helps in quick network troubleshooting.”
+
+7 - How would you troubleshoot a server running slowly?
+## [7] Troubleshooting Slow Server
+
+STEP 1 → CPU  : top / htop
+STEP 2 → RAM  : free -m
+STEP 3 → DISK : iostat / iotop
+STEP 4 → NET  : iftop
+STEP 5 → LOGS : /var/log
+
+✔ IMPRESSION LINE:
+I always troubleshoot systematically across CPU, memory, disk, network, and logs.
+“I follow a structured approach by checking CPU, memory, disk I/O, and network usage using tools like top, free, iostat, and iftop, and then verify logs to identify the root cause.”
+
+##############################
+
+## ROUND 3 – DEVOPS / CLOUD
+
+##############################
+
+1 - How do you create a new branch and switch to it?
+## [1] Create & Switch Git Branch
+
+git checkout -b feature-branch
+“I create and switch to a new branch using git checkout -b branch_name so I can work on features independently without affecting the main codebase.”
+
+2 - Explain how you would handle failed builds in Jenkins.
+## [2] Handling Failed Jenkins Build
+
+1. Check console logs
+2. Identify failed stage
+3. Verify dependencies
+4. Fix issue
+5. Re-run pipeline
+“I review the console output, identify the failed stage, verify dependencies or configuration issues, fix the problem, and then re-run the pipeline.”
+
+3 - How do you create a new Jenkins job for building a project?
+## [3] Create Jenkins Job
+
+1. New Item
+2. Choose Job Type
+3. Add Git repo
+4. Configure build steps
+5. Save & Build
+“I create a new job, configure the source repository, define build steps, and then run the job to automate the build process.”
+
+4 - How do you remove unused Docker images and containers?
+## [4] Remove Unused Docker Resources
+
+docker system prune -a
+
+5 - How do you list all running Docker containers?
+## [5] List Running Containers
+
+docker ps
+
+6 - How do you expose a Pod using a Service?
+## [6] Expose Pod via Service
+
+kubectl expose pod mypod --type=NodePort --port=80
+“I expose a pod using a Kubernetes Service such as NodePort or ClusterIP to make the application accessible within or outside the cluster.”
+
+7 - How do you stop, start, and terminate an EC2 instance? What happens to data on instance store vs EBS?
+## [7] EC2 Lifecycle + Storage
+You can do it using AWS CLI (this is what interviewers expect when they ask “how”)
+Start      → Boots instance
+aws ec2 start-instances --instance-ids i-1234567890abcdef0
+
+Stop       → Keeps EBS, stops compute
+aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+
+Terminate  → Deletes instance
+aws ec2 terminate-instances --instance-ids i-1234567890abcdef0
+
+
+Storage:
+Instance Store → Lost on stop/terminate
+EBS            → Persistent
+“EBS volumes are persistent storage, while instance store is ephemeral. I always ensure critical data is on EBS or backed up to S3 before stopping or terminating instances.”
+
+8 - How do you enable HTTPS on an AWS Load Balancer?
+## [8] Enable HTTPS on Load Balancer
+
+1. Create SSL certificate (ACM)
+2. Attach to ALB (port 443)
+3. Configure target group
+
+9 - You need to move an EC2 instance from one subnet to another. How would you do it?
+## [9] Move EC2 to Another Subnet
+
+1. Stop instance
+2. Create AMI
+3. Launch new instance in target subnet
+
+10 - What is the difference between Application Load Balancer (ALB) and Network Load Balancer (NLB)?
+## [10] ALB vs NLB
+
+ALB → Layer 7, HTTP/HTTPS, path-based routing
+NLB → Layer 4, TCP/UDP, ultra low latency
+
+=====================================================
+FINAL HR IMPACT LINE
+====================
+
+I focus on automation, scalability, and reliability. I design solutions that are efficient, repeatable, and production-ready.

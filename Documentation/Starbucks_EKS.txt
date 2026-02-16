@@ -1,0 +1,249 @@
+🚀 REAL WORLD DEVOPS PROJECT – 1
+☕ Starbucks App | CI/CD → EKS → Monitoring
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 PROJECT GOAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Build a real production-style DevOps setup where:
+
+• Code builds automatically
+• Quality scan runs
+• Security scan runs
+• Docker image pushed
+• App deployed to Kubernetes
+• Domain + SSL configured
+• Monitoring added
+• Infrastructure automated with Terraform
+
+Not just “it runs”, but full lifecycle.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🖥️ PHASE 1 – JENKINS SERVER SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Launched Ubuntu EC2.
+
+Attached Elastic IP (so public IP doesn’t change).
+
+Configured Security Group:
+
+22 → SSH
+8080 → Jenkins
+3000 → App
+80 / 443 → Web
+587 → Email
+
+Updated system and installed Jenkins using script.
+
+Accessed Jenkins via browser on port 8080.
+
+Installed required plugins:
+
+• Docker
+• NodeJS
+• SonarQube Scanner
+• Pipeline Stage View
+• Email Extension
+
+Now CI server ready.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 PHASE 2 – PROJECT STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cloned full GitHub repo.
+
+Repository contained:
+
+• App code
+• Jenkinsfile
+• Dockerfile
+• Kubernetes manifests
+• Terraform files
+• Monitoring configs
+• Installation scripts
+
+Made scripts executable and ran them.
+
+Lesson learned:
+Automation > Manual setup.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 PHASE 3 – SONARQUBE SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Launched separate EC2 for SonarQube.
+
+Ran SonarQube container on port 9000.
+
+Generated authentication token.
+
+Connected SonarQube to Jenkins using:
+
+• Token in credentials
+• Webhook for Quality Gate
+
+Now pipeline included:
+
+Code Analysis → Quality Gate → Continue if passed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 PHASE 4 – DOCKER BASED CI/CD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pipeline stages were:
+
+• Clean workspace
+• Checkout code
+• SonarQube scan
+• npm install
+• Trivy filesystem scan
+• Docker build
+• Docker push
+• Trivy image scan
+• Deploy container
+
+App was running on EC2 at port 3000.
+
+Everything worked.
+
+But…
+
+Single container is not scalable.
+
+If EC2 dies → app dies.
+
+That’s when I decided to move to Kubernetes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+☸️ PHASE 5 – EKS SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Created IAM user for automation.
+
+Configured AWS CLI.
+
+Used eksctl to:
+
+• Create EKS cluster
+• Create nodegroup
+• Associate OIDC
+• Update kubeconfig
+
+Verified nodes using kubectl.
+
+Important mistake I made:
+
+AWS CLI was configured for ubuntu user.
+But Jenkins runs as jenkins user.
+
+So Jenkins couldn’t access AWS.
+
+Fixed it by switching to jenkins user and configuring AWS there.
+
+Big learning moment.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔁 PHASE 6 – PIPELINE MODIFIED FOR EKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Removed container-based deploy.
+
+Added Kubernetes deployment stage.
+
+Pipeline now:
+
+Build → Push → Update kubeconfig → Apply manifest → Verify pods & services.
+
+Manifest included:
+
+Deployment with 2 replicas.
+Service type LoadBalancer.
+
+AWS automatically created Load Balancer.
+
+Got external URL.
+
+Now app is scalable.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌍 PHASE 7 – DOMAIN & SSL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Used Cloudflare.
+
+Mapped domain to LoadBalancer.
+
+Enabled SSL.
+
+Now app accessible over HTTPS.
+
+More production-ready.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 PHASE 8 – MONITORING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Created separate Monitoring EC2 using Terraform.
+
+Installed:
+
+• Prometheus
+• Grafana
+• Blackbox Exporter
+
+Configured Prometheus targets.
+
+Connected Grafana to Prometheus.
+
+Imported dashboards.
+
+Now monitoring:
+
+• Application availability
+• HTTP metrics
+• Endpoint status
+
+Mistake I made:
+
+Forgot to open Blackbox port in Security Group.
+
+Prometheus target was down.
+
+Fixed Security Group → restarted service → working.
+
+Lesson:
+Security Groups are always part of debugging.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️ FINAL ARCHITECTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Jenkins → CI/CD automation
+SonarQube → Code quality
+Trivy → Security scanning
+DockerHub → Image storage
+EKS → Container orchestration
+Cloudflare → DNS + SSL
+Terraform → Infrastructure as Code
+Prometheus → Metrics collection
+Grafana → Visualization
+Blackbox → Uptime monitoring
+
+Complete DevOps lifecycle.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧠 WHAT I LEARNED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• IAM matters for automation
+• Jenkins user vs Ubuntu user difference
+• Security Groups cause most issues
+• Kubernetes solves scaling
+• Monitoring completes DevOps
+• Automation reduces human error
+
+Most importantly:
+
+The confusion moments taught me more than the successful ones.

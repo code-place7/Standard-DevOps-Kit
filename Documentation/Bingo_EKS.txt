@@ -1,0 +1,500 @@
+🚀 REAL WORLD DEVOPS PROJECT — BINGO
+End-to-End CI/CD + EKS + Monitoring + Terraform
+
+============================
+🧠 UNDERSTANDING JIRA
+
+JIRA is a project management tool.
+
+Team Lead assigns tasks → based on your role.
+
+Task flow:
+
+TO DO → IN PROGRESS → DONE
+
+When you drag a task to IN PROGRESS, your lead gets notified.
+Simple workflow, but very important in real-world teams.
+
+============================
+🎯 PROJECT GOAL
+
+What I built:
+
+Bingo app deployed on Kubernetes with CI/CD
+
+SonarQube, Trivy, OWASP integrated into pipeline
+
+Email alerts with scan reports
+
+Secure subdomain with SSL (Cloudflare)
+
+Monitoring using Prometheus + Grafana
+
+HTTPS traffic tracking
+
+Infrastructure created using Terraform
+
+============================
+🏗️ STEP 1 — INFRASTRUCTURE
+
+Created Ubuntu EC2 instance in AWS
+
+Configured Security Groups
+
+SSH into VM
+
+Ran:
+
+sudo apt update
+
+Opened Ports:
+
+8080 → Jenkins
+3000 → Application
+9000 → SonarQube
+
+============================
+🛠️ TOOLS INSTALLED
+
+Jenkins
+
+Docker
+
+SonarQube
+
+AWS CLI
+
+kubectl
+
+eksctl
+
+Terraform
+
+Trivy
+
+Note: Manual installation takes time.
+Better approach → create installation scripts.
+
+============================
+🔧 JENKINS SETUP
+
+Access Jenkins:
+
+http://yourEC2IP:8080
+
+Installed Plugins:
+
+Eclipse Temurin Installer
+
+SonarQube Scanner
+
+NodeJS
+
+OWASP Dependency Check
+
+Pipeline Stage View
+
+Docker Plugins
+
+============================
+🧰 TOOL CONFIGURATION
+
+Configured tools with exact names:
+
+JDK → jdk17
+Sonar Scanner → sonar-scanner
+NodeJS → node16
+Dependency Check → DP
+Docker → docker
+
+Important:
+The name here MUST match what you call inside Jenkinsfile.
+Wrong name = pipeline failure.
+
+============================
+🔐 SONARQUBE INTEGRATION
+
+SonarQube → Admin → Security → Users → Generate Token
+
+Token Name: jenkin
+
+Saved in Jenkins Credentials as:
+
+ID: Sonar-token
+Type: Secret Text
+
+Configured Sonar server inside Jenkins System Configuration.
+
+============================
+🐳 DOCKER CREDENTIALS
+
+Stored DockerHub username & password in Jenkins credentials.
+Used later for pushing image to DockerHub.
+
+============================
+🔁 BASIC PIPELINE
+
+First pipeline stage:
+
+Git Checkout
+
+After build → repo visible inside Workspace tab.
+
+Then I realized:
+“This is just fetching code. Now we automate everything.”
+
+============================
+🔥 FULL CI/CD PIPELINE
+
+Stages added:
+
+Clean Workspace
+
+Checkout
+
+SonarQube Analysis
+
+Quality Gate
+
+npm install
+
+OWASP Scan
+
+Trivy FS Scan
+
+Docker Build
+
+Docker Push
+
+Trivy Image Scan
+
+Deploy Container
+
+After build:
+
+Sonar showed vulnerabilities
+
+Trivy generated txt files
+
+Docker image created
+
+Container running on port 3000
+
+Commands used for verification:
+
+docker images
+docker ps -a
+docker logs -f <container_id>
+
+Access app:
+
+http://EC2IP:3000
+
+============================
+📧 EMAIL NOTIFICATIONS
+
+Problem:
+Scan reports were only inside Jenkins.
+
+Solution:
+Configured Gmail SMTP using App Password.
+
+SMTP Details:
+
+smtp.gmail.com
+Port 587 / 465
+TLS + SSL
+
+Installed Email Extension plugin.
+Updated pipeline with post block to send reports.
+
+Now every build sends:
+
+Build status
+
+Build number
+
+Build URL
+
+Trivy reports as attachments
+
+Now it feels real production-ready.
+
+============================
+☸️ MOVING TO EKS
+
+eksctl → Creates cluster
+kubectl → Manages apps inside cluster
+
+Earlier: only AWS dashboard clicks.
+Now: CLI usage.
+
+So I needed IAM user.
+
+============================
+🔑 IAM + AWS CLI
+
+Created IAM user: bingok8s
+
+Attached policies:
+
+EC2 Full Access
+
+VPC Full Access
+
+Admin Access
+
+CloudFormation Full Access
+
+IAM Full Access
+
+Generated Access Key.
+
+Configured in VM:
+
+aws configure
+
+============================
+🚀 CREATE EKS CLUSTER
+
+Command:
+
+eksctl create cluster --name your_cluster_name
+--region ap-south-1
+--node-type t2.medium
+--zones ap-south-1a,ap-south-1b
+
+Verified in AWS Dashboard:
+
+Cluster created
+
+2 nodes
+
+Different availability zones
+
+============================
+📄 KUBERNETES MANIFEST
+
+Why?
+
+Instead of single container:
+
+Replicas
+
+Auto scaling
+
+Load balancing
+
+Self-healing
+
+Applied using:
+
+kubectl apply -f manifest.yml
+
+Verification:
+
+kubectl get pods
+kubectl logs <pod-name>
+
+Access via Load Balancer DNS.
+
+Traffic distribution handled by:
+
+Kubernetes Service
+
+kube-proxy
+
+Scheduler decides pod placement
+
+============================
+🌍 DOMAIN + SSL
+
+Used Cloudflare:
+
+Added domain
+
+Mapped Load Balancer
+
+Enabled SSL
+
+Now app looks production-ready.
+
+============================
+🏗️ TERRAFORM (MONITORING EC2)
+
+Files:
+
+main.tf
+
+variables.tf
+
+output.tf
+
+Commands:
+
+terraform init
+terraform plan
+terraform apply
+
+Verified EC2 creation in AWS.
+
+============================
+🤯 CONFUSION MOMENT
+
+I thought:
+
+“Why is my repo not in this VM?”
+
+Then realized:
+
+Earlier deployment was done through Jenkins pipeline.
+
+Now using CLI → I must clone repo manually.
+
+mkdir bingo
+cd bingo
+git clone <repo>
+
+Everything became clear.
+
+============================
+📊 MONITORING SETUP
+
+On Monitoring EC2:
+
+sudo su
+sudo apt update
+
+Installed Prometheus.
+
+Used clean structure:
+
+mkdir -p /etc/prometheus
+
+Checked port:
+
+netstat -tulnp
+
+Prometheus → Port 9090
+
+Initially not accessible → Security group missing.
+Fixed inbound rule.
+
+============================
+🛰️ BLACKBOX EXPORTER
+
+Tracks:
+
+HTTP
+
+HTTPS
+
+DNS
+
+TCP
+
+ICMP
+
+Started:
+
+./blackbox_exporter &
+
+Runs on port 9115.
+
+Configured Prometheus.yml with targets.
+
+Restarted Prometheus.
+
+Checked Target Health in dashboard.
+
+============================
+📈 GRAFANA
+
+Started service:
+
+sudo systemctl start grafana-server
+
+Opened security group port.
+
+Inside Grafana:
+
+Added Prometheus as Data Source
+
+Imported Blackbox dashboard
+
+Now metrics visualized properly.
+
+============================
+🖥️ NODE EXPORTER
+
+Important:
+
+Node Exporter → Installed on MAIN EC2
+Prometheus config → Edited on MONITORING EC2
+
+Started:
+
+./node_exporter &
+
+Port: 9100
+
+Updated Prometheus.yml.
+Restarted Prometheus in background:
+
+./prometheus > prometheus.log 2>&1 &
+
+Imported Node Exporter dashboard in Grafana.
+
+Now visible:
+
+CPU
+
+RAM
+
+Memory
+
+System Load
+
+Architecture connected:
+
+Blackbox → External traffic
+Node Exp → System health
+Prometheus → Collector
+Grafana → Visualization
+
+============================
+🧹 CLEANUP
+
+After practice:
+
+terraform destroy
+
+Also manually checked AWS dashboard
+Deleted any manually created resources.
+
+Clean account = good DevOps habit.
+
+============================
+🏁 WHAT I LEARNED
+
+Not about memorizing commands.
+
+It was about understanding:
+
+CI/CD automation
+
+Infrastructure as Code
+
+Kubernetes scaling
+
+Monitoring architecture
+
+CLI vs Dashboard usage
+
+Security best practices
+
+Production mindset
+
+And honestly…
+
+The confusion moments taught me more than the smooth ones.
